@@ -19,5 +19,8 @@ HBuilder 中egit使用说明
 	untrack     不追踪
 	
 分支合并
-	Fast-forward   '快进模式'就是改变了master和分支的指针非常块
+	Fast-forward   '快进模式'就是改变了master和分支的指针非常
+
+	这里是我测试添加道暂存器
+	
 
