@@ -1,0 +1,117 @@
+技术
+	众成翻译
+	http://www.zcfy.cc/
+
+	掘金
+	http://gold.xitu.io/
+
+	javascript标准教程
+	http://javascript.ruanyifeng.com/
+
+	ECMAScript6入门
+	http://es6.ruanyifeng.com/
+
+	十分钟构建自动化
+	http://www.jianshu.com/p/cc1cb9a5650c#
+
+	nodejs 教程
+	http://www.zcfy.cc/article/node-hero-getting-started-with-node-js-tutorial-risingstack-1748.html
+
+
+	JavaScript Promise迷你书（中文版）
+	http://liubin.org/promises-book/
+
+
+	超级前端资源分享
+	https://cnodejs.org/topic/56ef3edd532839c33a99d00e
+
+	javascript秘密花园
+	http://bonsaiden.github.io/JavaScript-Garden/zh/
+
+	javascript的设计模式
+	http://www.alloyteam.com/2012/10/common-javascript-design-patterns/
+
+	js前端开发群月报
+	http://www.kancloud.cn/jsfront/month/241662
+
+	移动端多级联动插件
+	http://gold.xitu.io/post/583faa050ce46300576216df?utm_source=gold_browser_extension
+
+
+	游戏
+	http://www.oschina.net/news/72092/2016-top-15-html5-game-engines
+	http://www.jianshu.com/p/0469cd7b1711
+
+	javascript中的各种宽高
+	http://www.jianshu.com/p/60332df38393
+	
+	javascript中的设计模式
+	http://wiki.jikexueyuan.com/project/javascript-design-patterns/observer-pattern.html
+
+	前端web开发代码规范
+	http://www.jianshu.com/p/66f066126f5f#
+
+	图标
+	http://www.easyicon.net/update/
+
+	图片压缩
+	https://tinypng.com/
+
+vue相关
+	vue-cli#2.0 webpack 配置分析
+	https://gold.xitu.io/post/584e48b2ac502e006c74a120
+
+	vue实现的例子
+	http://www.17shulihua.com/archives/category/frontend-demo/vue-demo
+
+
+	原生拖拽
+	http://www.cnblogs.com/libin-1/p/6220056.html
+
+	atom 文本编辑器
+	http://www.jianshu.com/p/719fc516d093
+
+gulp
+	重新学一次gulp
+	https://www.talkingcoder.com/article/6367591948982623481
+
+网站测试
+	https://gtmetrix.com/reports/www.ehang.com/CAUAqRVd/retest
+
+360七舞团特训视频
+	【--=  
+
+ios局部滚动
+	https://zhuanlan.zhihu.com/p/24837233
+
+video全屏播放
+https://aotu.io/notes/2017/01/11/mobile-video/
+
+月影学习
+http://ppt.baomitu.com/display?slide_id=0b2e616b#/23
+
+函数节流和函数去抖
+http://ppt.baomitu.com/display?slide_id=31f87016#/6
+
+chrome devTools 中文版
+http://www.css88.com/doc/chrome-devtools/
+
+webpack资源列表
+http://mp.weixin.qq.com/s/zQSKfKQvD0F8gmLKw5EaDA
+
+webpack中文官网
+https://webpack-china.org/
+
+全景地图
+https://isux.tencent.com/3d.html
+
+	看云文档
+http://www.kancloud.cn/shellway/npm-doc/199981
+http://www.kancloud.cn/dennis/javascriptmethod/261471
+
+切图工具
+https://blog.jimdono.com/qian-duan-qie-tu-shen-qi-avocode/
+
+
+快速构建H5模版
+https://aotu.io/notes/2017/01/17/elf/

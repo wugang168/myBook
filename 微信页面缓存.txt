@@ -1,0 +1,7 @@
+设置http请求头
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+在资源后面设置时间戳
+1.jpg?rand=<?php echo rand(1000,50000); ?> 
