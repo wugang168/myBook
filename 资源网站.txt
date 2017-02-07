@@ -1,117 +1,117 @@
-¼¼Êõ
-	ÖÚ³É·­Òë
+æŠ€æœ¯
+	ä¼—æˆç¿»è¯‘
 	http://www.zcfy.cc/
 
-	¾ò½ğ
+	æ˜é‡‘
 	http://gold.xitu.io/
 
-	javascript±ê×¼½Ì³Ì
+	javascriptæ ‡å‡†æ•™ç¨‹
 	http://javascript.ruanyifeng.com/
 
-	ECMAScript6ÈëÃÅ
+	ECMAScript6å…¥é—¨
 	http://es6.ruanyifeng.com/
 
-	Ê®·ÖÖÓ¹¹½¨×Ô¶¯»¯
+	ååˆ†é’Ÿæ„å»ºè‡ªåŠ¨åŒ–
 	http://www.jianshu.com/p/cc1cb9a5650c#
 
-	nodejs ½Ì³Ì
+	nodejs æ•™ç¨‹
 	http://www.zcfy.cc/article/node-hero-getting-started-with-node-js-tutorial-risingstack-1748.html
 
 
-	JavaScript PromiseÃÔÄãÊé£¨ÖĞÎÄ°æ£©
+	JavaScript Promiseè¿·ä½ ä¹¦ï¼ˆä¸­æ–‡ç‰ˆï¼‰
 	http://liubin.org/promises-book/
 
 
-	³¬¼¶Ç°¶Ë×ÊÔ´·ÖÏí
+	è¶…çº§å‰ç«¯èµ„æºåˆ†äº«
 	https://cnodejs.org/topic/56ef3edd532839c33a99d00e
 
-	javascriptÃØÃÜ»¨Ô°
+	javascriptç§˜å¯†èŠ±å›­
 	http://bonsaiden.github.io/JavaScript-Garden/zh/
 
-	javascriptµÄÉè¼ÆÄ£Ê½
+	javascriptçš„è®¾è®¡æ¨¡å¼
 	http://www.alloyteam.com/2012/10/common-javascript-design-patterns/
 
-	jsÇ°¶Ë¿ª·¢ÈºÔÂ±¨
+	jså‰ç«¯å¼€å‘ç¾¤æœˆæŠ¥
 	http://www.kancloud.cn/jsfront/month/241662
 
-	ÒÆ¶¯¶Ë¶à¼¶Áª¶¯²å¼ş
+	ç§»åŠ¨ç«¯å¤šçº§è”åŠ¨æ’ä»¶
 	http://gold.xitu.io/post/583faa050ce46300576216df?utm_source=gold_browser_extension
 
 
-	ÓÎÏ·
+	æ¸¸æˆ
 	http://www.oschina.net/news/72092/2016-top-15-html5-game-engines
 	http://www.jianshu.com/p/0469cd7b1711
 
-	javascriptÖĞµÄ¸÷ÖÖ¿í¸ß
+	javascriptä¸­çš„å„ç§å®½é«˜
 	http://www.jianshu.com/p/60332df38393
 	
-	javascriptÖĞµÄÉè¼ÆÄ£Ê½
+	javascriptä¸­çš„è®¾è®¡æ¨¡å¼
 	http://wiki.jikexueyuan.com/project/javascript-design-patterns/observer-pattern.html
 
-	Ç°¶Ëweb¿ª·¢´úÂë¹æ·¶
+	å‰ç«¯webå¼€å‘ä»£ç è§„èŒƒ
 	http://www.jianshu.com/p/66f066126f5f#
 
-	Í¼±ê
+	å›¾æ ‡
 	http://www.easyicon.net/update/
 
-	Í¼Æ¬Ñ¹Ëõ
+	å›¾ç‰‡å‹ç¼©
 	https://tinypng.com/
 
-vueÏà¹Ø
-	vue-cli#2.0 webpack ÅäÖÃ·ÖÎö
+vueç›¸å…³
+	vue-cli#2.0 webpack é…ç½®åˆ†æ
 	https://gold.xitu.io/post/584e48b2ac502e006c74a120
 
-	vueÊµÏÖµÄÀı×Ó
+	vueå®ç°çš„ä¾‹å­
 	http://www.17shulihua.com/archives/category/frontend-demo/vue-demo
 
 
-	Ô­ÉúÍÏ×§
+	åŸç”Ÿæ‹–æ‹½
 	http://www.cnblogs.com/libin-1/p/6220056.html
 
-	atom ÎÄ±¾±à¼­Æ÷
+	atom æ–‡æœ¬ç¼–è¾‘å™¨
 	http://www.jianshu.com/p/719fc516d093
 
 gulp
-	ÖØĞÂÑ§Ò»´Îgulp
+	é‡æ–°å­¦ä¸€æ¬¡gulp
 	https://www.talkingcoder.com/article/6367591948982623481
 
-ÍøÕ¾²âÊÔ
+ç½‘ç«™æµ‹è¯•
 	https://gtmetrix.com/reports/www.ehang.com/CAUAqRVd/retest
 
-360ÆßÎèÍÅÌØÑµÊÓÆµ
-	¡¾--=  
+360ä¸ƒèˆå›¢ç‰¹è®­è§†é¢‘
+	ã€--=  
 
-ios¾Ö²¿¹ö¶¯
+ioså±€éƒ¨æ»šåŠ¨
 	https://zhuanlan.zhihu.com/p/24837233
 
-videoÈ«ÆÁ²¥·Å
+videoå…¨å±æ’­æ”¾
 https://aotu.io/notes/2017/01/11/mobile-video/
 
-ÔÂÓ°Ñ§Ï°
+æœˆå½±å­¦ä¹ 
 http://ppt.baomitu.com/display?slide_id=0b2e616b#/23
 
-º¯Êı½ÚÁ÷ºÍº¯ÊıÈ¥¶¶
+å‡½æ•°èŠ‚æµå’Œå‡½æ•°å»æŠ–
 http://ppt.baomitu.com/display?slide_id=31f87016#/6
 
-chrome devTools ÖĞÎÄ°æ
+chrome devTools ä¸­æ–‡ç‰ˆ
 http://www.css88.com/doc/chrome-devtools/
 
-webpack×ÊÔ´ÁĞ±í
+webpackèµ„æºåˆ—è¡¨
 http://mp.weixin.qq.com/s/zQSKfKQvD0F8gmLKw5EaDA
 
-webpackÖĞÎÄ¹ÙÍø
+webpackä¸­æ–‡å®˜ç½‘
 https://webpack-china.org/
 
-È«¾°µØÍ¼
+å…¨æ™¯åœ°å›¾
 https://isux.tencent.com/3d.html
 
-	¿´ÔÆÎÄµµ
+	çœ‹äº‘æ–‡æ¡£
 http://www.kancloud.cn/shellway/npm-doc/199981
 http://www.kancloud.cn/dennis/javascriptmethod/261471
 
-ÇĞÍ¼¹¤¾ß
+åˆ‡å›¾å·¥å…·
 https://blog.jimdono.com/qian-duan-qie-tu-shen-qi-avocode/
 
 
-¿ìËÙ¹¹½¨H5Ä£°æ
+å¿«é€Ÿæ„å»ºH5æ¨¡ç‰ˆ
 https://aotu.io/notes/2017/01/17/elf/
