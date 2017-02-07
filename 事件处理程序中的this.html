@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.box {
+				width: 200px;
+				height: 100px;
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+	<body>
+		
+		
+		<div id="box" class="box">
+			
+		</div>
+		
+		<script>
+			
+			//单击事件处理程序
+			//函数的作用于是定义时候的作用域 而非调用时候的作用域
+			function boxClick(a, b) {
+				//this 谁调用就指向谁
+				console.log(this);
+				console.log(a + "|" + b);
+			}
+			
+			window.onload = function(){
+				var box = document.getElementById("box");
+				box.addEventListener("click", boxClick.bind(box, 1,2), false);
+			}
+		</script>
+	</body>
+</html>

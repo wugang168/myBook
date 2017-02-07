@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Js闭包</title>
+		<script type="text/javascript">
+			//
+//			var txt = "我是在外部定义的变量";
+//			var fun = (function(){
+//				txt = "我是在内部定义的变量";
+//				return function(){
+//					console.log(txt);
+//				};
+//			}());
+//			fun();
+			
+			
+			
+			function aa(){
+				var a = 1;
+				var b = 2;
+				function add(){
+					a++;
+					return a+b;
+				}
+				function adde(){
+					return a-b;
+				}
+				return {"add":add, "adde":adde}
+			}
+			
+			var test = aa();
+			var test1 = aa();
+//			add();
+//			console.log(test.add());
+//			console.log(test1.add());
+			
+			var slider = (function(){
+				
+				//这里是代码
+				
+				return function(config){
+					
+				}
+				
+			})(window, document);
+			
+			
+			var slider1 = function(){
+				
+				var a = 1;
+				var b = 2;
+				return {
+					'add':function(){
+						a++;
+						b++;
+						console.log(a+"----"+b);
+					},
+					'add1':function(){},
+					'init':function(){}
+				};
+			};
+			slider1().add();
+			slider1().add();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

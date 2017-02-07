@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			"use strict"
+			function check(args) {
+				var actual = args.length;
+				var expected = null;
+				if( actual != expected ){
+					throw new Error ("参数数量有错误");
+				}
+			}
+			function x(x,y,z){
+				let abc = 1;
+				console.log();
+				check(arguments);
+				
+				console.log(abc);
+				return x+y+z;
+			}
+//			x(1,2,3);
+			console.log(x.length);
+			x(1);
+			
+		</script>
+	</head>
+	<body>
+	<div>
+		函数的参数列表：
+			arguments
+			函数定义的时候自动声明一个局部变量arguments  指向的是Arguments的一个实例对象
+			arguments.length  获取实际传入函数的参数个数
+			arguments.callee.length 获取到当前执行函数定义的参数列表
+	</div>
+	</body>
+</html>

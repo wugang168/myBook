@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			//js 中对象作为参数传递时使用的引用方式传递，在函数里面改变了值 原始值也会改变
+//			var a = {
+//				x: 1,
+//				y: 2
+//			};
+//			
+//			function diff( obj ) {
+//				obj.x = 3;
+//			}
+//			
+//			
+//			diff(a)
+//			console.log(a);
+
+
+			function setName(obj) {    
+				obj.name = "Nicholas";     
+				obj = new Object();     
+				obj.name = "Greg"; 
+			}
+			var person = new Object(); 
+			setName(person); 
+			alert(person.name);    //"Nicholas"
+		</script>
+	</body>
+</html>
