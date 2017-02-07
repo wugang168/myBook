@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="" style="width: 500px;height: 300px;margin: 0 auto;border: 1px solid red;">
+			<button id="addNewObserver">Add New Observer checkbox</button>
+			<!--<button id="btn-fan">反选</button>-->
+			<input id="mainCheckbox" type="checkbox"/>
+			<input  id="btn-fan" type="checkbox"/>
+			<div id="observersContainer" style="border: 1px solid green; padding: 20px; margin-top: 20px;">
+			</div>
+			<button id="moveAt">移除一个响应</button>
+		</div>
+		<!--
+		一个或者更多的观察者对一个被观察者的状态感兴趣，将自身的这种兴趣通过附着自身的方式注册在被观察者身上。
+		当被观察者发生变化，而这种便可也是观察者所关心的，就会产生一个通知，这个通知将会被送出去，最后将会调用每个观察者的更新方法。
+		当观察者不在对被观察者的状态感兴趣的时候，它们只需要简单的将自身剥离即可
+		-->
+		<script>
+			//观察者列表功能类,实现添加,删除,插入,插找
+			//类实现使用构造函数+原型链模式
+			function ObserverList(){
+				
+				this.observerList = [];
+			}
+			//添加
+			ObserverList.prototype.Add = function(obj){
+				return this.observerList.push(obj);
+			}
+			//清空
+			ObserverList.prototype.Empty = function(){
+				this.observerList = [];
+			}
+			//统计
+			ObserverList.prototype.Count = function(){
+				return this.observerList.length;
+			}
+			//获取指定index位置对象
+			ObserverList.prototype.Get = function(index){
+				if(index > -1 && index < this.observerList.length){
+					return this.observerList[index];
+				}
+			}
+			//查找对象在数组中的位置
+			ObserverList.prototype.indexOf = function(obj, startIndex){
+				var pointer = startIndex, len = this.observerList.length;
+				for(var i = pointer; i < len; i ++){
+					if( this.observerList[i] === obj ){
+						pointer = i
+					}
+				}
+				return pointer;
+			}
+			//移除指定位置的对象
+			ObserverList.prototype.RemoveAt = function(index){
+				if(index === 0){
+					this.observerList.shift();
+				}else if(index === this.observerList.length - 1){
+					this.observerList.pop();
+				}else{
+					this.observerList.splice(index, 1);
+				}
+			}
+			//在前面插入或者后面插入
+			ObserverList.prototype.Inset = function(obj, index){
+				var pointer = -1;
+				if( index === 0){
+					pointer = this.observerList.unshift(obj);
+				}else if( index === this.observerList.length - 1){
+					pointer = this.observerList.push(obj);
+				}else {
+					this.observerList.splice(index, 0, obj);
+				}
+			}
+			//使用一个扩展 扩展一个对象
+			function extend(extension, obj){
+				for(var key in extension){
+					obj[key] = extension[key];
+				}
+			}
+			
+			//被观察者类
+			function Subject() {
+				this.observers = new ObserverList();
+			}
+			//添加观察者
+			Subject.prototype.AddObserver = function(observer){
+				this.observers.Add(observer);
+			}
+			//移除
+			Subject.prototype.RemoveObserver = function(observer){
+				
+			}
+			//通知
+			Subject.prototype.Notify = function( context, val ){
+				var len = this.observers.Count();
+				for(var i=0; i<len; i++){
+					this.observers.Get(i)[context](val);
+				}
+			}
+			
+			//观察者
+			function Observer() {
+				this.update = function(val){
+					this.checked = val;
+				}
+				this.selects = function(){
+  					this.checked = !this.checked;
+  				}
+			}
+
+			//获取到Dom节点
+			var controlCheckbox = document.getElementById( "mainCheckbox" ),
+			    addBtn = document.getElementById( "addNewObserver" ),
+			    container = document.getElementById( "observersContainer" );
+			    btnFan = document.getElementById( "btn-fan" );
+				moveAt = document.getElementById("moveAt");
+			//  扩展
+			extend(new Subject(), controlCheckbox);
+			extend(new Subject(), btnFan);
+			
+			//当被观察者被点击的时候，就通知他的观察者们
+			controlCheckbox["onclick"] = function(){
+				controlCheckbox.Notify("update", this.checked);
+			}
+			btnFan["onclick"] = function(){
+				btnFan.Notify("selects");
+			}
+			
+			//添加一个新的观察者
+			addBtn.onclick = function(){
+				var check  = document.createElement( "input" );
+  				check.type = "checkbox";
+  				// 使用Observer 类扩展checkbox
+  				extend( new Observer(), check );
+  				controlCheckbox.AddObserver( check );
+  				btnFan.AddObserver( check );
+  				container.appendChild( check );
+			}
+			moveAt["onclick"] = function(){
+				controlCheckbox.observers.RemoveAt(2);
+				btnFan.observers.RemoveAt(2);
+			}
+		</script>
+	</body>
+</html>

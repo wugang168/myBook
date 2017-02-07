@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			html {
+				box-sizing: border-box;
+			}
+			*,
+			*:before,
+			*:after {
+				box-sizing: border-box;
+			}
+			.wrap { width: 1200px; margin: 0 auto;}
+			nav {
+				float: left;
+				width: 100px;
+			}
+			div,section {
+				margin-left: 100px;
+			}
+			div {
+				border: 1px solid red;
+			}
+			section {
+				border: 1px solid green;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			div默认宽度计算的话就应该是
+			左边距+左边框+左内边距+宽度+右边距+右边框+右内边距 = 100%[继承父级的宽度100%];
+		-->
+		<div class="wrap">
+			<nav>
+				<a href="">第一</a>
+				<a href="">第二</a>
+				<a href="">第三</a>
+			</nav>
+			<div>
+				这里是第一块的文本
+			</div>
+			<section>
+				这里是第二快的文本
+			</section>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* { margin:0; padding:0;}
+			li { list-style: none;}
+			.head-nav { width: 100%; background: #fff; height: 50px; border-bottom: 1px solid red;}
+			.head-nav-container {
+				width: 1200px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			.pc-logo {
+				float: left;
+				margin-right: 30px;
+			}
+			.pc-nav-list {
+				float: left;
+			}
+			.pc-nav-list > li {
+				float: left;
+				padding: 15px 25px;
+			}
+			
+			.wap-logo,.wap-nav-link{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="page">
+			<header class="head-nav">
+				<div class="head-nav-container">
+					<!--logo-->
+					<div class="pc-logo">
+		                <a href="http://mall.ehang.com"><img src="{{ 'web_log' | asset_url }}" alt="{{ shop.name }}" title="{{ shop.name }}"/></a>
+		            </div>
+		            <a href="/" class="wap-logo " title="{{ shop.name }}">{{ shop.name }}</a>
+					<!--pc导航栏-->
+					<ul class="pc-nav-list">
+						<li>首页</li>
+						<li>产品也</li>
+						<li>列表页</li>
+						<li>列表也2</li>
+					</ul>
+					
+					<!--用户登录-->
+					<div class="user-info">
+					</div>
+					
+					<!--购物车-->
+	        		<div id="yhsd_topCart_show" class="header-cart fr">
+	                    <a href="/cart"><span class="main-ico main-ico-cart"></span></a>
+	                    <span class="topCart-quantity settings-top_color " id="yhsd_topCart_quantityTitle"></span>
+	                </div>
+	                
+	                <!--手机端导航-->
+	                <a id="nav_mobile" class="wap-nav-link" href="javascript:void(0);">
+                          <span></span><span></span><span></span>
+                    </a>
+				</div>
+			</header>
+		</div>
+	</body>
+</html>

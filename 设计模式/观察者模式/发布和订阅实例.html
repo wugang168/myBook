@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script>
+			
+			//publish  发布
+			//topic    主题
+			//subscribe  订阅
+			var pubsub = {};
+			(function(p){
+				
+				var topics = {};
+					subUid = -1;
+				//发布
+				p.publish = function(topic, args){
+					if(!topics[topic]){
+						return false;
+					}
+					var subsriber = topics[topic];
+						len = subsriber ? subsriber.length :　0;
+					while( len --){
+						subsriber[len].func(topic, args);
+					}
+					return this;
+				}
+				
+				//订阅
+				p.subscribe = function(topic, func){
+					if(!topics[topic]){
+						topics[topic] = [];
+					}
+					var token = (++ subUid).toString();
+					topics[topic].push({"token":token, "func": func});
+					return token;
+				}
+				
+				//取消订阅
+				p.unsubscribe = function( token ){
+					for( var　m in topics){
+						if(topics[m]){
+							for(var i=0; i<topics[m].length; i++){
+								if(topics[m][i].token == token){
+									topics[m].splice(i, 1);
+									return token;
+								}
+							}
+							
+						}
+					}
+					return this;
+				}
+				
+			})(pubsub);
+			
+			//使用上面写的发布订阅模式
+			var messageLoger = function(topic, data){
+			 	console.log("loggin:"+topic+"|"+data);
+			}
+			//订阅一个主题事件
+			var a = pubsub.subscribe("index", messageLoger);
+			var b = pubsub.subscribe("index", messageLoger);
+			var c = pubsub.subscribe("index", function(topic, data){
+				console.log("这是c的通知事件");
+			});
+			pubsub.publish("index", "这个事件发起了");
+			
+			
+			
+			var getCurrentTime = function(){
+				
+				var date = new Date(),
+		        m = date.getMonth() + 1,
+		        d = date.getDate(),
+		        y = date.getFullYear(),
+		        t = date.toLocaleTimeString().toLowerCase();
+		
+		        return (m + "/" + d + "/" + y + " " + t);
+			}
+			
+			function addGrid(data) {
+				console.log( "updated grid component with:" + data );
+			}
+			
+			function updateCounter(data){
+				console.log( "data last updated at: " + getCurrentTime() + " with " + data);
+			}
+			
+			var gridUpdate = function( topic, data ){
+
+			  if ( data !== "undefined" ) {
+			     addGrid( data );
+			     updateCounter( data );
+			  }
+			};
+			pubsub.subscribe("dataupdate", gridUpdate);
+			pubsub.publish("dataupdate", {	
+			})
+			pubsub.publish("dataupdate", {
+			})
+		</script>
+	</body>
+</html>

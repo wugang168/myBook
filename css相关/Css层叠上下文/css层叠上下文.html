@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* { margin: 0; padding: 0;}
+			/*div { width: 200px; height: 200px; }*/
+			.red { background: red; }
+			.green { background: green; }
+			.box1 { position: relative; z-index: auto }
+			.box2 { position: relative; z-index: auto }
+			/*img { width: 200px; height: 200px; }*/
+			
+			.box3 { width: 250px; height: 250px; background: blue; }
+		</style>
+	</head>
+	<body>
+		<div class="box1">
+			<img src="./image/1.jpg" alt="" style="position: absolute; z-index: 2"/>
+		</div>
+		
+		<div class="box2">
+			<img src="./image/2.jpg" alt="" style="position: absolute; z-index: 1"/>
+		</div>
+		
+		
+		<!--验证在层叠上下文中background 在 z-index:-值 的下面-->
+		<!--<div class="box3" style="position: relative; filter: blur(5px);">
+			<img src="./image/2.jpg" alt=""   style="position: relative; z-index: -1; right: -150px;"/>
+		</div>-->
+	</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			Array.prototype.unique = function() {
+			  var sortArr = this.sort(),
+			    i = 0,
+			    len = sortArr.length;
+			  for(; i < len; i++){
+//			  	console.log(sortArr[i]);
+//			  	console.log(sortArr[i++]);
+			    if(sortArr[i] === sortArr[i++]){
+			      sortArr.splice(i,1);
+			      i--;
+			    }
+//			    return sortArr;
+			  }
+			  return sortArr;
+			}
+			
+			var arr = [1,5,5,4,5,6,7,1,2,3,4,5,5,7];
+			console.log(arr.unique());
+		</script>
+	</body>
+</html>

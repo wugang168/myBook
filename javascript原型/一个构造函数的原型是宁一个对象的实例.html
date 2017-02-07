@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function B(){
+				this.bname = "B的名字";
+			}
+			function A() {
+				this.aname = "a的名字";
+				this.getName = function(){
+					console.log(this.aname);
+				}
+			}
+			B.prototype = new A();
+			var b = new B();
+			console.log(b.aname);
+			b.getName();
+		</script>
+	</body>
+</html>

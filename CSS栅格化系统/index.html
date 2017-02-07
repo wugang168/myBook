@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			html{
+				box-sizing: border-box;
+			}
+			*,
+			*:after,
+			*:before{
+				box-sizing: inherit;
+			}
+			.l-wrap {
+				max-width: 1200px;
+				margin: 0 auto;
+			}
+			.three-col-grid .grid-item {
+				width: 33.3333%;
+				float: left;
+			}
+			/*清楚浮动塌陷*/
+			.three-col-grid:after {
+				display: table;
+				content: "";
+				clear: both;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class="l-wrap">
+		  <div class="three-col-grid">
+		    <div class="grid-item">Grid item</div>
+		    <div class="grid-item">Grid item</div>
+		    <div class="grid-item">Grid item</div>
+		  </div>
+		</div>
+		<div class="l-wrap">
+			<div class="three-col-grid">
+				
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//javascript中的数据类型： string number boolean undefined null 基本类型
+			//引用类型 object  array function
+			//基本类型检查使用typeof
+			(function(){
+				var str = "string";
+				if(typeof str == "string"){
+					console.log("这是一个字符串");
+				}
+				if(typeof str == "boolean"){
+					console.log( "这里是boolean" );
+				}
+				if(typeof str == "undefined"){
+					console.log( "这里是undefined" );
+				}
+				if(typeof str == "number") {
+					console.log("这里是数子")
+				}
+				var arr = [1,2,3,4];
+				var obj = {};
+				var fun = function(){};
+				var nul = null;
+				console.log(typeof obj);
+				console.log(typeof arr);
+				console.log(typeof fun);
+				console.log(typeof nul);
+				if(typeof str != "undefined"){
+					console.log("");
+				}
+				var element = document.getElementById("my-div");
+				if (element !== null) {
+				    element.className = "found";
+				}else{
+					console.log(element);
+				}
+				console.log(arr.toString());
+				console.log(Object.prototype.toString.call(arr));
+				console.log(Object.prototype.toString.call(arr) == "[object Array]");
+			})();
+			
+			//typeof 检查基本类型的类型检查
+			//使用typeof 返回的是类型的字符串表示形式 string, number, boolean, undefined, object, function
+			//如果检查的是引用类型返回的字符串：  object      [js中的内置对象Array, Date, Math, RegExp]
+			//如果检查的是函数： function
+			//一个特列： 如果检查的是null: object
+			//instanceof 检查引用类型的类型检查 [会在原型链上面查找]
+		</script>
+	</body>
+</html>

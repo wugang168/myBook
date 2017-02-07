@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--每一个对象都有一个指向原型的指针,这个对象也可以是一个对象的实例对象-->
+		<!--标准中__proto__是浏览器端独有的,而去是私有的不被暴露使用的-->
+		<!--	
+		构造函数中有一个prototype 和 __proto__ 
+		prototype 指向Object.prototype
+		__proto__ 指向Function.prototype 
+		__proto__.constructor 就是函数本身
+		-->
+		<script>
+		(function(){
+			function Eooff() {
+				this.name = "ceshi";
+			}
+			Eooff.prototype.getName = function(){
+				console.log(this.name);
+			}
+//			Eooff.prototype = {
+//				getName : function(){
+//					console.log(1);
+//					console.log(this.name);
+//					console.log(2);
+//				}
+//			}
+
+			var a = new Eooff();
+			var b = new Eooff();
+			a.__proto__.getCC = {};   //
+			console.log(a);
+			a.getName();
+			console.log(a.getCC);
+			console.log(b.getCC)
+
+//			console.log( Eooff.prototype instanceof Object );
+//			console.log(Eooff.__proto__ === Function.prototype );
+//			console.log(Eooff.constructor);//这个是在原型链中找到的
+		})();	
+		</script>
+		
+		<!--原型链-->
+		<!--
+			一个实例对象是另外一个实例对象的原型
+		-->
+		<script>
+			(function(){
+				//构造函数a
+				function A() {
+					this.aname = "a的名字";
+				}
+				//构造函数B
+				function B() {
+					this.bname = "b的名字";
+				}
+				var test = new A();
+				var testb = new B();
+				console.log(test.prototype);
+				test.__proto__ = testb;
+				console.log(test.bname);
+				
+			})();
+		</script>
+	</body>
+</html>

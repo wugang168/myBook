@@ -1,0 +1,16 @@
+1.栅格格子的宽度计算公式
+	格子列*格子宽度  + (格子列-1)*格子间宽度  = 网格宽度
+	
+建立栅格系统步骤：
+	1.选择一个标准 float flexbox css栅格
+	2.定义box-sizing: border-box;
+	3.创建一个网格容器
+	4.计算列宽
+	5.拆分间隔 (Padding)
+		使用margin 或者 padding 单边设置
+		使用margin 或者 padding 双边设置
+		
+		使用padding的话会有背景图bug,背景图是平铺在padding中的
+	6.创建调试网格
+	7.创建可变的布局
+	8.使布局响应
