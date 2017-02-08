@@ -1,0 +1,2 @@
+<Understanding ECMAScript 6> 中文翻译版本,本书对有一定经验的前端有帮助
+https://sagittarius-rev.gitbooks.io/understanding-ecmascript-6-zh-ver/content/chapter_1.html
