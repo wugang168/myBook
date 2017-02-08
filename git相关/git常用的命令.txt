@@ -1,0 +1,130 @@
+git中的3个重要概念
+工作区(Working Directory)
+	当前的文件目录中的文件,
+
+暂存区(stage|index)
+	把修改过或者需要作版本控制的文件加入道暂存区中
+	使用git add 
+	
+仓库(Repository)
+	一个自动创建的master分支和指向master的指针HEAD
+	把暂存区的数据提交道仓库中，进行版本控制
+	git commit -m ""
+
+只有提交到暂存区的数据才会进行版本控制
+
+Untracked 没有被版本可以记录
+
+1.初始化一个本地仓库
+git init
+
+2.查看当前仓库的状态，会列出当前的分支，那些文件修改,提示使用什么命令处理文件
+git status
+
+3.把要给文件添加到仓库中
+	git add readme.txt
+	
+	2.1.一次添加多个文件或者目录
+	git add --all [all 会把所有修改的文件都提交打暂存区？要看标准文档才知道]
+	git add a.txt b.txt c.txt
+	
+4.提交到仓库中
+git commit -m "本次提交的说明"
+
+5.查看文件当前版本和上一个版本的不同地方
+git diff a.txt
+
+6.查看提交的历史记录,由近到远列出提交的历史记录，commit id 是hash的字符串
+git log 
+	优化显示结果
+	git log --pretty=online   在同一行显示
+	
+7.版本的回退,
+git reset --hard commit-id
+	相对的回退到上一个版本 
+	git reset --hard HEAD^, 
+	git reset --hard HEAD^^, 
+	git reset --hard HEAD~10
+	
+8.版本回退后,在使用git log 列出来的可能就没有最新的了,要想再次回退道最新的怎么办？
+git reflog [记录所以的历史命令，可以在这里面找到最新的cmmit-id]然后用git reset --hard commit-id 
+
+9.打开一个文件查看文件内容
+cat a.txt 
+
+10.查看文件在工作区和版本库中的最新区别
+git diff HEAD -- readme.txt
+
+11.撤销修改
+	a.当修改了工作区的文件,还没有提交到暂存区的话想撤销文件
+		git chackout -- a.txt   [直接从最新的仓库中拿去最新的文件]
+	b.当修改了工作区的文件,而且提交到了暂存区
+		git reset HEAD a.txt  这个时候工作区的内容是被修改的？
+		git chackout -- a.txt
+	c.删除暂存区的数据
+		git rm --cache a.txt
+		
+12.删除文件
+	git rm a.txt
+	
+
+13.远程仓库的关联
+	1.本地有一个仓库,github上面有一个仓库连个仓库关联
+		git remote add origin git@github.com:michaelliao/learngit.git
+		git push -u origin master
+		origin其实就是在本地创建一个标识来关联远程仓库
+		
+	2.存在与远程仓库,重上面克隆仓库到本地
+		git clone git@github.com:michaelliao/learngit.git
+		
+14.分支系统
+	查看分支
+		git branch
+	创建分支
+		git branch <name>
+	切换分支
+		git checkout <name>
+	创建和切换分支
+		git branch -b <name>
+	合并分支
+		git merge <branch>   把分支合并到当前HEAD指向的分支中	
+	
+	删除分支[合并后的分支]
+		git branch -d <name>
+		git branch -D <name> [强制删除未合并的分支]
+			
+	分支合并有历史记录
+	git merge --no-ff -m "本次提交说明" dev
+	
+
+15.查看远程库的信息
+	git remote -v
+	
+	本地推送分支到远程,
+	git push origin branchname ，
+		第一种：如果失败说明远程的分支有最新的,需要git pull 抓取远程最新的提交
+		第二种：本地分支和远程分支没有建立关联
+			git branch --set-upstream branch-name origin/branch-name [建立关联]
+	
+	在本地创建和远程一样的分支
+		git branch -b branch-name origin/branch-name
+		
+	从远程抓取最新的提交
+	git pull
+
+16.打标签
+	创建标签
+	git tag <tagname>   
+	创建标签并指定信息
+	git tag -a tagname -m ""
+	查看标签
+	git tag
+	
+	删除本地标签
+	git tag -d tagname
+	推送一个本地标签
+	git push origin <tagname>
+	推送全部的标签
+	git push origin --tags
+	删除远程的标签
+	git push origin :refs/tags/tagname

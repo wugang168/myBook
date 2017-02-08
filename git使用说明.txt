@@ -23,4 +23,6 @@ HBuilder 中egit使用说明
 
 	这里是我测试添加道暂存器
 	
+	HEAD          当前工作区指向的版本节点
+	FETCH HEAD
 
