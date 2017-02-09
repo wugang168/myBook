@@ -1,0 +1,22 @@
+1.javascript中false的情况
+	undefined
+	null
+	0
+	-0
+	''
+	NaN
+
+	对象都表示真[],{} 
+	
+2.包装对象
+	String, Number, Boolean
+	原始类型定义[不可变,不能添加属性只读]  var s = "a";[使用包装对象创建了一个临时的对象用完就删除了]
+	引用类型[属于对象,可以添加属性] var s1 = new String("a");
+	在这里
+		s == s1 为true
+		s === s1 为false   使用typeof s返回string   s1返回object
+		
+3.类型的转换
+	
+	10 + "object"  => 数字和字符串相加最终是字符串
+	10 - "x"  => 数字和字符串相减,字符串会被转换为数字再作运算,字符串将使用强转换number()[必须是全数字的字符串  ];
