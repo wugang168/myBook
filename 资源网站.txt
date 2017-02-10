@@ -115,3 +115,16 @@ https://blog.jimdono.com/qian-duan-qie-tu-shen-qi-avocode/
 
 快速构建H5模版
 https://aotu.io/notes/2017/01/17/elf/
+
+
+实现一个组件写法
+https://github.com/purplebamboo/demo-richbase
+
+jquery源码分析比较合意
+http://yuren.space/blog/2017/01/29/jquery-source-main/
+
+代码整洁
+http://www.zcfy.cc/article/clean-code-javascript-readme-md-at-master-ryanmcdermott-clean-code-javascript-github-2273.html#classes
+
+javascirpt基础只是所谓大图
+http://www.aseoe.com/special/jsswdt/

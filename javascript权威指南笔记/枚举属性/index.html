@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			Object.prototype.func = function(){
+				
+			};
+			
+			var o = {
+				x: 1,
+				y: 2
+			}
+			console.log(o.propertyIsEnumerable( "tostring" ));
+			console.log(o.hasOwnProperty("x"));
+			for( var p in o ){
+				console.log( p );
+			}
+			
+			console.log(Object.getOwnPropertyNames(o));
+			
+			function keys(o) {
+				if( typeof o !== "object" ){
+					throw TypeError();
+				}
+				var result = [];
+				for( prop in o ){
+					if( o.hasOwnProperty(prop) ){
+						result.push(prop);
+					}
+				}
+				return result;
+			}
+			
+			var obj = {
+					x: 1,
+					get a() {
+						return this.x ++;
+					},
+					set a(value) {
+						this.x = value;
+					}
+				}
+			
+			console.log(obj.a);
+			console.log(obj.a);
+			obj.a = 100;
+			console.log(obj.a);
+			console.log(obj.a);
+			
+			
+			function Person() {
+				this.name = "name";
+			}
+			Person.prototype = {};
+			var a = new Person();
+			console.log(a.constructor);
+			console.log(a.__proto__);
+		
+//			console.log(Person.constructor);
+//			Person.prototype = {	
+//			}
+			
+			console.log(Person.__proto__ == Function.prototype);
+			
+			
+			Array.prototype = {};
+			console.log(Array.prototype);
+			var a = [1,2,3];
+			console.log(a.length);
+			
+			function x() {
+				if( arguments.length != 3 ){
+					throw new Error("参数个数不一直");
+				}
+			}
+//			x();
+			
+			function max() {
+				var max = Number.NEGATIVE_INFINITY;
+				for(var i = 0, len = arguments.length; i < len; i++){
+					if( arguments[i] >　max ){
+						max = arguments[i];
+					}
+				}
+				return max;
+			}
+			console.log( max(1,2,3,4,5,2222,444,333,222,111,0) );
+			
+			
+			
+			function counts(n) {
+				
+				return {
+					get count() {
+						return n++;
+					},
+					set count(m) {
+						if( m > n ){
+							n = m;
+						}
+					}
+				}
+			}
+			var c = counts(1000);
+			c.count = 2000;
+			console.log(c.count);
+			
+			
+			var m = {
+				addname: function(){
+					console.log("添加一个name");
+				}
+			}
+			function traict(obj, prop) {
+				var origin = obj[prop];
+				obj[prop] = function(){
+					console.log("开始");
+					var result = origin.apply(this, arguments);
+					console.log("结束");
+					return result;
+				}
+			}
+			traict(m, "addname");
+			m.addname();
+			
+			
+			function bind(fun, obj){
+				if( fun.bind ){
+					return fun.bind(obj);
+				}
+				return function(){
+					return fun.apply(obj, arguments);
+				}
+			}
+			
+			
+			function addTest(x, y) {
+				return x + y;
+			}
+			var addTest1 = addTest.bind(null, 1, 1);
+			console.log(addTest1());
+			console.log(addTest.toString());
+			console.log(Array.toString());
+			
+			
+//			把一个函数重新包装一下
+			function addMyFirst(){
+				console.log("daole ");
+				console.log(name);
+			}
+			
+			function packagingFun(f){
+				var name = "yyy";
+				return function(){
+					return f.call(null, arguments);
+				}
+			}
+			
+			var addMyFirst2 = packagingFun(addMyFirst);
+			addMyFirst2();
+		</script>
+	</body>
+</html>
