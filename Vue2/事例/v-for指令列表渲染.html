@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<title></title>
+		<style>
+			.namebox {
+				border: 1px solid red;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">	
+			<p v-for="item in items" class="namebox">
+				{{ item.name }}
+				<!--<h1>{{ item.name }}</h1>-->
+				<!--<span>{{ item.age }}</span>-->
+				<p>我是附加的</p>
+			</p>
+			
+			<!--使用包装元素来实现-->
+			<template v-for="i in items" >
+				<p class="namebox">
+					<span>{{ i.name }}</span>
+					<span>{{ i.age }}</span>
+				</p>
+			</template>
+			
+			<!--遍历对象的属性-->
+			<div class="" v-for="(prop,key) in items">
+				<!--{{ prop.name }} + {{ key }}-->
+				<span>测试利用</span>
+				<span>{{ prop.name }}</span>
+			</div>
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					parent: "",
+					items: [
+						{name: "a", age: 24},
+						{name: "b", age: 26},
+						{name: "c", age: 38}
+					],
+					objectname: {
+						name: "a",
+						age: '22',
+						home: "chongqq"
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

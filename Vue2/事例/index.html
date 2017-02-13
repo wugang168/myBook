@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<style>
+			.form-box {
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-if="isshow" v-bind:title="title" mes="我是在里面定义的">
+			{{ message }}
+			<ol>
+				<li v-for="v in datalist">
+					{{ v.txt }}
+				</li>
+			</ol>
+			<button v-on:click="clickfun">提交信息</button>
+			<div id="form-box">
+				<input type="text" v-model="message"/>
+			</div>
+			
+			
+			<!--v-html定义html数据-->
+			<div v-html="html1">
+			</div>
+			
+			<button v-bind:disabled="isdisabled">我是不可以点击的</button>
+			<div>
+				{{ reverseMessage }}
+			</div>
+		</div>
+		<script>
+			var app = new Vue({
+				el: "#app",
+				data: {
+					message: "我是这里的消息文本信息",
+					title: "我是主分支",
+					isshow: true,
+					datalist: [
+						{txt: "我是第一行"},
+						{txt: "我是第二行"},
+						{txt: "我是第三行"}
+					],
+					html1: "<h1>我是好</h1>",
+					isdisabled: false
+				},
+				methods: {
+					clickfun: function(){
+						console.log("我点击的按钮");
+						this.message = this.message.split("").reverse().join("");
+					}
+				},
+				created: function(){
+					console.log(this);
+					console.log("vue实例创建了");
+					function innerFun() {
+						console.log(this);
+					}
+					innerFun();
+				},
+				mounted: function(){
+					console.log("挂在到dom上面了");
+				},
+				filters: {
+					valuetostring: function(){
+						
+					}
+				},
+				computed: {
+					reverseMessage: function(){
+						return this.message.split("").reverse().join("");
+					}
+				},
+				watch: {
+					isshow: function(){
+						console.log("isshow被改变了");
+					}
+				}
+			});
+		</script> 
+	</body>
+</html>

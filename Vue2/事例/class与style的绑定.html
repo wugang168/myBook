@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<style type="text/css">
+			.colorBox {
+				width: 300px;
+				height: 300px;
+				border: 1px solid red;
+				margin: 0 auto;
+				background: #fff;
+			}
+			.red {
+				background: red
+			}
+			.green {
+				background: green;
+			}
+			.blue {
+				background: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-bind:class="comClassList" class="inlneClass">
+			<!--需求： 利用改变class来改变背景颜色的变换-->
+			<div class="colorBox" v-bind:class="{red: isRed, green: isGreen, blue: isblue}">
+			</div>
+			<button v-on:click="changeBackground">切换背景颜色</button>
+			<!--需求： 随机改变背景颜色-->
+			<div class="colorBox" v-bind:style="backStyle">
+			</div>
+			<button v-on:click="changeBackgroundTwo">切换背景颜色</button>
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					isRed: false,
+					isGreen: false,
+					isblue: false,
+					time: null,
+					backStyle: {
+						background: "red"
+					},
+					isStop: false
+				},
+				methods: {
+					changeBackground: function(){
+						this.isRed = !this.isRed;
+					},
+					changeBackgroundTwo: function(){
+						this.isStop = !this.isStop;
+						if( this.isStop ){
+							this.changeBG();
+						}else{
+							clearInterval(this.time);
+						}
+					},
+					changeBG: function(){
+						this.backStyle.background = this.randomColor();
+						var _self = this;
+						clearInterval(this.time);
+						this.time = setInterval(function(){
+							_self.changeBG();
+						}, 1000);
+					},
+					randomColor: function(){
+						var str = "0123456789abcdef";
+						var color = "#";
+						var randNum = null;
+						for(var i = 0; i < 6; i++){
+							randNum = Math.floor( Math.random()*str.length );
+							color += str.charAt(randNum);
+						}
+						console.log(color);
+						return color;
+					}
+				},
+				computed: {
+					comClassList: function(){
+						return {
+							"classA": this.isClassA,
+							"classB": this.istext != "表单验证需要的值"
+						};
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

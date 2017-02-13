@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<h1 v-if="ish1">TTUE</h1>
+			<h1 v-else>FALSE</h1>
+		</div>
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					ish1: true
+				}
+			});
+		</script>
+	</body>
+</html>
