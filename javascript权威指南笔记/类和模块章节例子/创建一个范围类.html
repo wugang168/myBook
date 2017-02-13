@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//模拟继承函数
+			function inherit(prop) {
+				
+				if( Object.create ){
+					return Object.create(prop);
+				}
+				var f = function(){
+				}
+				f.propotype = prop;
+				return new f();
+			}
+			
+			//工厂函数,调用方法,返回一个对象,通过一个函数来创建一类实例
+			function range(from, to) {
+				var r = inherit(range.method);
+				r.from = from;
+				r.to = to;
+				return r;
+			}
+			range.method = {
+				 inculdes: function(x) {
+				 	return this.from <= x && this.to >= x;
+				 },
+				 foreach: function(f) {
+				 	for(var i = Math.ceil(this.from); i < this.to; i++){
+				 		f(i);
+				 	}
+				 },
+				 toString: function(){
+				 	return this.from + "....." + this.to;
+				 }
+			}
+			
+			//range构造函数方式实现
+			function range(from, to) {
+				this.from = from;
+				this.to = to;
+			}
+			range.prototype = {
+				includes: function(x) {
+					
+				},
+				foreach: function(f) {
+					
+				},
+				tostring: function() {
+					return 
+				}
+			}
+		</script>
+	</body>
+</html>
