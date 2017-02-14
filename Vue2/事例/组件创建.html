@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<head-nav :parenta="message" v-on:parentclick="parentClick" >我是从父级组件上面继承下来的内容能够</head-nav>
+			<head-nav v-on:click="dosomeing" v-on:parentclick="parentClick"></head-nav>
+			<head-nav></head-nav>
+		</div>
+		<script>
+			Vue.component("head-nav", {
+				template: "<h1 :title='title' :alt='alt' @click='h1click'>{{count}} + {{parenta}} <slot></slot></h1>",
+				methods: {
+					h1click: function(){
+						++this.count ;
+						this.$emit("parentclick");
+						this.$emit("click");
+					}
+				},
+				data: function(){
+					return {
+						title: "标题",
+						alt: "alt标记",
+						count: 0
+					};
+				},
+				props: ["parenta", "parentB"]
+			});
+			
+			var vm = new Vue({
+				el: "#app",
+				components: {
+					"first": {
+						template: "<span @click='clickFirst'>我是子组件1</span>",
+						methods: {
+							clickFirst: function(){
+								console.log("第一个子组件被点击了");
+							}
+						}
+					}
+				},
+				data: { 
+					message: "我是父级的数据"
+				},
+				methods: {
+					parentClick: function(){
+						console.log("我是在父级中处理点击事件的");
+					},
+					dosomeing: function(){
+						console.log("原生的点击事件");
+					}
+				}
+			});
+		</script>
+		
+		<template id="headNav">
+			
+		</template>
+	</body>
+</html>
