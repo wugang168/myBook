@@ -1,0 +1,19 @@
+元素定位
+	position: absolute 中 top,left,right,bottom 四个方向的值如果设置的是auto的话,是相对它在常规流的位置,默认就是auto
+			  如果是百分比的值,参照包含快的高度来计算
+	
+	行内元素如果有了position属性为absolute就变为块级元素了, 可以添加宽度和高度
+	行内元素如果有了float属性就变为块级元素了, 可以添加宽度和高度
+			  
+块级元素
+	[块级元素在文档中按竖向排列]
+	在页面中块级元素在没有定义宽度的时候,默认是100%; 相对的是包裹他的父级元素的content宽度;而高度则是通过自己内部元素撑开或者定义一个高度值;
+	注意：如果一个块级元素中有浮动的元素或者定位的元素,块级元素就会出现高度塌陷
+	
+布局
+	display: 常用值 none inline inline-block block table table-cell[内容垂直居中]
+
+浮动
+	float 在遇到display: none; 和绝对定位的时候float失效
+	[float是脱离常规文档流的,飘在了上面]
+	

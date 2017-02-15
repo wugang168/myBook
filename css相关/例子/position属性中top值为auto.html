@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#app {
+				/*position: relative;*/
+				width: 200px;
+				/*height: 200px;*/
+				border: 1px solid red;
+				margin-left: 200px;
+				margin-top: 300px;
+			}
+			.pos-abs {
+				position: absolute;
+				top: 10px;
+				width: 30px;
+				height: 30px;
+				border: 1px solid green;
+			}
+			.content {
+				height: 2000px;
+			}
+			
+			.zIndex-box {
+				position: relative;
+				width: 400px;
+				height: 400px;
+				border: 1px solid red;
+			}
+			.zIndex {
+				width: 30px;
+				height: 30px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				transition: all 20s;
+			}
+			.zIndex-1 {
+				background: red;
+				z-index: 1;
+			}
+			.zIndex-2 {
+				background: green;
+				z-index: 2;
+			}
+			
+			div{position:relative;}
+			p{position:absolute;}
+			.a{background:red;z-index: 5}
+			.b{background:green;z-index: 10;}
+			.test, .test2 {
+				/*height: 60px;*/
+				/*overflow: hidden;*/
+			}
+			.test2 {
+				margin-top: 50px;
+				/*z-index: 20;*/
+			}
+		</style>
+		<script></script>
+	</head>
+	<body>
+		<div id="app">
+			<div class="pos-abs">
+			</div>
+			<div class="content">
+			</div>
+			
+			<!--z-index层叠上下文-->
+			<div class="zIndex-box">
+				<div class="zIndex zIndex-1">
+				</div>
+				<div class="zIndex zIndex-2">
+				</div>
+				
+				<div style="margin-top: 200px;">
+					<div class="test">
+						<p class="a">asdas</p>
+					</div>
+					<div class="test2">
+						<p class="b">asdas</p>
+					</div>
+				</div>
+			</div>
+			
+			<div style="border: 1px solid red; position: relative; width: 100px; height: 100px; padding: 20px; ">
+				<span class="" style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; background: green">
+				</span>
+			</div>
+		</div>
+	</body>
+</html>
