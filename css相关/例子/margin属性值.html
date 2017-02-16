@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box {
+				width: 400px;
+				height: 200px;
+				border: 1px solid red;
+			}
+			.box-inner {
+				width: 100px;
+				height: 60px;
+				border: 1px solid green;
+				margin-top: 10%;
+			}
+			.box-span {
+				border: 1px solid red;
+				margin:0 20px;
+			}
+			.box2{
+				width: 1000px;
+				height: 600px;
+				border: 1px solid red;
+			}
+			.box2 p, .box2 div{
+				-webkit-writing-mode: vertical-rl; /* for browsers of webkit engine */
+    			writing-mode: tb-rl; /* for ie */
+				margin: 10% 2%;
+				border: 1px solid red;
+			}
+			.box3-1 {
+				margin-bottom: 20px;
+				background: burlywood;
+			}
+			.box3 {
+				width: 1000px;
+				height: 600px;
+				background: red;
+				display:inline-block;
+			}
+			.box3-2 {
+				
+				margin-top: 20px;
+				background: gold;
+			}
+			
+			.box-tit{
+				width: 400px;
+				padding: 5px 10px;
+				background: #DEB887;
+				border-radius: 8px;
+				overflow: hidden;
+				margin-bottom: 10px;
+			}
+			.box-tit li {
+				height: 30px;
+				line-height: 30px;
+				border-bottom: 1px solid #FF0000;
+			}
+			.box-tit ul {
+				margin-bottom: -6px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="box-inner">
+				我是块级元素
+			</div>
+			<span class="box-span">我是行内元素1</span><span class="box-span">我是行内元素2</span>
+		</div>
+		
+		<div class="box2">
+			<div>我是内容</div>
+			<p>我是p的内容</p>
+		</div>
+		
+		<div class="box3">
+			<div class="box3-1">测试1</div>
+			<div class="box3-2">测试2</div>
+		</div>
+		
+		<div class="box-tit">
+			<h2>这里是标题</h2>
+			<ul>
+				<li>ceifkdjkfd1</li>
+				<li>ceifkdjkfd1</li>
+				<li>ceifkdjkfd1</li>
+				<li>ceifkdjkfd1</li>
+				<li>ceifkdjkfd1</li>
+			</ul>
+		</div>
+	</body>
+</html>

@@ -16,4 +16,39 @@
 浮动
 	float 在遇到display: none; 和绝对定位的时候float失效
 	[float是脱离常规文档流的,飘在了上面]
+	清除浮动 clear: left/right/both
 	
+margin属性
+	块级元素可以设置4个方向, 左右auto的时候会根据两边的空间来计算
+	行内元素可以设置左右方向的定值
+	
+	auto值：
+		margin-top和margin-bottom计算为0
+		margin-left，margin-right，由元素两边的剩余空间来计算
+	
+	百分值：[受书写模式writing-mode的影响]
+		top，right,bottom,left,参考的都是父级元素的宽度值来计算的
+	
+	有关问题：
+		1.上下margin的折叠， 可以是兄弟元素也可以是父级元素
+			发生折叠需要是相邻的非浮动元素；
+			折叠发生在垂直外边距上，即margin-top/margin-bottom；
+			折叠后取其中最大的那个margin值作为最终值；
+		
+		解决margin折叠：【父级上面的折叠】
+			设置padding-top或者border-top
+			定位或者浮动
+			设置父级元素overflow:hidden;
+	
+	巧用负margin实现一些特殊处理
+
+padding属性
+	
+	在使用100%方式来定义padding的时候,参考的都是包含快的width,在定位快中就可能不是他的父级了
+	行内级元素不可以设置上下padding，但是可以设置左右边距
+
+
+受书写模式影响的其它特性：
+	margin折叠
+	margin的keyword auto value
+	padding的百分比值
