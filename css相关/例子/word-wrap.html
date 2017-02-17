@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8" />
+<title>overflow-wrap_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
+<style>
+.test p{width:100px;border:1px solid #000;background-color:#eee;}
+.normal p{word-wrap:normal;overflow-wrap:normal;}
+.break-word p{word-wrap:break-word;overflow-wrap:break-word;}
+
+.ani-word-spacing {
+	letter-spacing: 5px;
+	word-break: keep-all;
+	word-spacing: 10px;
+	transition: all .6s;
+}
+.ani-word-spacing:hover {
+	word-spacing: 1px;
+	letter-spacing: 1px;
+}
+</style>
+</head>
+<body>
+<ul class="test">
+	<li class="normal">
+		<strong>normal：</strong>
+		<p>fsdfidsfisdifsudifsdufiisfi中英混排的时候</p>
+	</li>
+	<li class="break-word">
+		<strong>break-word：</strong>
+		<p>aaabbbcccdddeeefffggghhhiiijjjkkklllmmmnnn</p>
+	</li>
+	<li class="break-word">
+		<strong>break-word：</strong>
+		<p>中英混排的时候abcdefghijklmnopqrst</p>
+	</li>
+	
+</ul>
+<p class="ani-word-spacing">我是中文 hello word! hello word!</p>
+</body>
+</html>

@@ -15,8 +15,8 @@
 				background-color: #fff;
 				background-image: url(../../测试/image/1.jpg);
 				background-origin: border-box;
+				background-attachment: fixed;
 			}
-			
 			.box3 {
 				width: 200px;
 				height: 200px;
@@ -41,7 +41,18 @@
 			}
 			.box3:hover .box4   {
 				border-width: 0;
-				
+			}
+			.box5 {
+				width: 500px;
+				height: 500px;
+				border: 1px solid red;
+				padding: 100px;
+				background-image: url(../../测试/image/1.jpg);
+				background-repeat: no-repeat;
+				padding: 100px;
+				background-clip: content-box;
+				background-color: red;
+				background-size: cover;
 			}
 		</style>
 	</head>
@@ -50,18 +61,17 @@
 			<div class="box2">
 			</div>
 		</div>
+		<div class="box5">
+		</div>
 		<div>
 			<img src="../../测试/image/1.jpg" alt="" />
 		</div>
-		
 		<div class="box3">
 			<img src="../../测试/image/1.jpg" alt="" />
 			<div class="box4">
 			</div>
 		</div>
-		
 		<div style="height: 5000px;">
-			
 		</div>
 	</body>
 </html>

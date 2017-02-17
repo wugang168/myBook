@@ -52,3 +52,6 @@ padding属性
 	margin折叠
 	margin的keyword auto value
 	padding的百分比值
+
+
+opacity 定义小于1的值会创建局部层叠上下文

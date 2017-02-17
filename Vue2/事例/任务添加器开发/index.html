@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<style>
+			html {
+				box-sizing: border-box;
+			}
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			*, *:after, *:before {
+				box-sizing: inherit;
+			}
+			li {
+				list-style: none;
+			}
+			button {
+				outline: none;
+				border: 0;
+			}
+			html, body {
+				font-size: 14px;
+				width: 100%;
+				height: 100%;
+				background: #F7F9F9;
+			}
+			.top-title {
+				height: 45px;
+				line-height: 45px;
+				font-size: 18px;
+				background-color: #DEB887;
+			}
+			.section-center {
+				width: 800px;
+				margin: 0 auto;
+			} 
+			.plan-title {
+				font-weight: normal;
+				font-size: 18px;
+				padding: 10px 0;
+			}
+			.add-input {
+				width: 100%;
+				height: 35px;
+				padding: 3px;
+			}
+			.plan-tip {
+				padding: 10px 5px;
+			}
+			.plan-tip-msg {
+				color: red;
+			}
+			.no-plan-list {
+				height: 40px;
+				line-height: 40px;
+			}
+			.plan-box {
+				padding: 5px;
+				border-radius: 4px;
+				background: #fff;
+			}
+			.plan-list li{
+				position: relative;
+				height: 40px;
+				line-height: 40px;
+				border-bottom: 1px solid #a9a9a9;
+			}
+			.plan-list li:hover {
+				background: #EEEEEE;
+			}
+			.plan-checkInput {
+				margin-right: 10px;
+				margin-left: 2px;
+				/*display: none;*/
+			}
+			.plan-checkInput:after {
+				content: "";
+				display: block;
+				margin-top: -2px;
+				margin-left: -2px;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				background: #fff;
+				border: 1px solid #A9A9A9;
+			}
+			.plan-checkInput:checked:after {
+				background: green;
+			}
+			.complete label {
+				color: #a9a9a9;
+				text-decoration:line-through;
+			}
+			
+			
+			.plan-edit {
+				display: none;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: #fff;
+			}
+			.editing .plan-edit {
+				display: block;
+			}
+			
+			.plan-list .plan-del {
+				position: absolute;
+				right: 5px;
+				top: 5px;
+				display: none;
+				width: 18px;
+				height: 18px;
+				cursor: pointer;
+				background-color: transparent;
+			}
+			.plan-list .plan-del:before, .plan-list .plan-del:after  {
+				content: "";
+				position: absolute;
+				top: 9px;
+				left: 0;
+				width: 100%;
+				height: 2px;
+				background: red;
+				transform: rotate(45deg);
+			}
+			.plan-list .plan-del:after {
+				transform: rotate(-45deg);
+			}
+			.plan-list li:hover  .plan-del {
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" class="wrap">
+			<header class="top-title">
+				<div class="section-center">任务计划列表</div>
+			</header>
+			<div class="section-center">
+				<h3 class="plan-title">添加任务：</h3>
+				<div class="add-plan">
+					<input class="add-input" type="text" v-model="currentValue" v-on:keyup.enter="addPlan" placeholder="请添加你的新的任务"/>
+				</div>
+				<!--提示-->
+				<div class="plan-tip" >
+					<span class="plan-tip-msg"> {{ noscuess }} 个任务未完成</span>
+					<button v-on:click="searchPlan('all')">所以任务</button>
+					<button v-on:click="searchPlan('not')">未完成任务</button>
+					<button v-on:click="searchPlan('scuess')">完成任务</button>
+				</div>
+				<!--列表-->
+				<h3 class="plan-title">任务列表：</h3>
+				<div class="plan-box">
+					<div class="no-plan-list" v-show=" !planlist.length ">还没有添加任何任务</div>
+					<ul class="plan-list">
+						<li v-for="(item, index) in planlist" v-bind:class="{complete: item.issuccess, editing: editValue === item}"> 
+							<div class="plan-view">
+								<input class="plan-checkInput"  type="checkbox" v-model="item.issuccess" />
+								<label v-on:dblclick="editPlan(item)"> {{ item.title }} </label>
+								<!--关闭-->
+								<button class="plan-del" v-on:click="delPlan(item)"></button>
+							</div>
+							<input v-focus type="text" class="plan-edit" 
+								v-model="item.title" 
+								v-on:keyup.enter="confirmPlan"
+								v-on:blur="confirmPlan"
+								v-on:keyup.esc="outPlan(item)"
+								/>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			var data = {
+				allPlanList: [
+					{
+						title: "我要干什么任务1",  //任务描述
+						issuccess: false      //任务是否完成
+					},
+					{
+						title: "我要干什么任务1",  //任务描述
+						issuccess: false      //任务是否完成
+					},
+					{
+						title: "我要干什么任务1",  //任务描述
+						issuccess: false      //任务是否完成
+					},
+					{
+						title: "我要干什么任务1",  //任务描述
+						issuccess: false      //任务是否完成
+					},
+					{
+						title: "我要干什么任务1",  //任务描述
+						issuccess: false      //任务是否完成
+					},
+					{
+						title: "我要干什么任务1",  //任务描述
+						issuccess: false      //任务是否完成
+					}
+				],
+				cuessPlanList: [],
+				currentValue: "",   //当前添加的值
+				editValue: "",      //编辑的值
+				beforEditValue: "",  //编辑之前的值
+				planType: "all"
+			};
+			var vm = new Vue({
+				el: "#app",
+				data: data,
+				methods: {
+					addPlan: function(){ //添加计划
+						this.allPlanList.push({
+							title: this.currentValue,
+							issuccess: false
+						})
+						this.currentValue = "";
+						this.searchPlan("not");
+					},
+					editPlan: function(todo){ //编辑计划
+						if( !todo.issuccess ){
+							this.editValue = todo;
+							this.beforEditValue = todo.title;
+						}
+					},
+					delPlan: function(todo){ //删除计划
+						var index = this.allPlanList.indexOf(todo);
+						this.allPlanList.splice(index, 1);
+					},
+					confirmPlan: function(){ //确认编辑成功
+						this.editValue = "";
+					},
+					outPlan: function(todo){
+						todo.title = this.beforEditValue; 
+						this.editValue = "";
+					},
+					searchPlan: function(type){
+						this.planType = type;
+					}
+				},
+				computed: {
+					noscuess: function(){
+						return this.allPlanList.filter(function(todo){
+							return !todo.issuccess;
+						}).length;
+					},
+					planlist: function(){
+//						if( this.planType == "all" ){
+//							return this.allPlanList;
+//						}else if( this.planType  == "not" ){
+//							return this.allPlanList.filter(function(item){
+//								return !item.issuccess;
+//							});
+//						}else{
+//							return this.allPlanList.filter(function(item){
+//								return item.issuccess;
+//							});
+//						}
+						switch( this.planType ) {
+							case "all":
+								return this.allPlanList;
+							case "not":
+								return this.allPlanList.filter(function(item){
+									return !item.issuccess;
+								});
+							default:
+								return this.allPlanList.filter(function(item){
+									return item.issuccess;
+								});
+						}
+					}
+				},
+				directives: {
+				  focus: {
+				    update: function(el){
+				    	el.focus();
+				    }
+				  }
+				}
+			});
+		</script>
+	</body>
+</html>
