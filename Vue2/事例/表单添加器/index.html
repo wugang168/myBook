@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<style>
+			html {
+				box-sizing: border-box;
+			}
+			* { 
+				padding: 0;
+				margin: 0;
+			}
+			*,*:before, *:after {
+				box-sizing: inherit;
+			}
+			.table-box {
+				width: 600px;
+				margin: 0 auto;
+			}
+			table {
+				width: 100%;
+				text-align: center;
+				border-spacing: 0;
+				border-collapse: collapse;
+			}
+			table th, table td {
+				border: 1px solid #666;
+				padding: 4px 2px;
+			}
+			table th {
+				background: #A9A9A9;
+				color: #fff;
+			}
+			.table-head {
+				height: 60px;
+				line-height: 60px;
+			}
+			.table-head input {
+				height: 30px;
+				box-sizing: border-box;
+			}
+			
+			/*弹出层组件样式*/
+			.dialog-wrap {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				visibility: hidden;
+				background: rgba(0, 0, 0, 0);
+				transition: all .6s;
+			}
+			.bgshow {
+				visibility: visible;
+				background: rgba(0, 0, 0, 0.5);
+			}
+			.dialog {
+				position: relative;
+				width: 400px;
+				margin: 100px auto 0;
+				border: 1px solid red;
+				background: #fff;
+				transform: translateY(-100px);
+				transition: .3s ease-in-out;
+				opacity: 0;
+			}
+			.bgshow .dialog {
+				transition: .6s ease-in-out;
+				transform: translateX(0px);
+				opacity: 1;
+			}
+			
+			.dialog-content {
+				width: 100%;
+				height: 100%;
+			}
+			.dialog-close {
+				position: absolute;
+				right: 0;
+				top: 0;
+				width: 20px;
+				height: 20px;
+				background: green;
+				cursor: pointer;
+			}
+			.dialog-head {
+				height: 50px;
+				line-height: 50px;
+				background: red;
+				text-align: center;
+			}
+			.dialog-body {
+				height: 200px;
+				background: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="table-box">
+				<div class="table-head">
+					<input type="text" placeholder="输入要搜索的项" v-model="searchKey"/>
+					<input type="month" name="" id="" value="2017-1" min="2016-10" max="2017-10"/>
+				</div>
+				<div class="table-continner">
+					<table>
+						<tr>
+							<th v-for="td in tableHead">{{ td | capitalize }}</th>
+						</tr>
+						<tr v-for=" (item, key) in computeddatalist ">
+							<td> {{ item.name }} </td>
+							<td> {{ item.age }} </td>
+							<td> {{ item.sex }} </td>
+							<td>
+								<button class="btn btn-del" @click="delData(item)">删除</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="table-footer">
+					<button class="btn btn-create" @click="createDialog">创建</button>
+				</div>
+			</div>
+			<mydialog v-bind:dialogshow="dialogShow" v-on:close-dialog="closeDialog">
+				<h1 slot="header">添加新的会员</h1>
+				<div slot="body">
+					<div>
+						姓名： <input type="text" v-model="newPerson.name"/>
+					</div>
+					<div>
+						年龄： <input type="text" v-model="newPerson.age"/>
+					</div>
+					<div>
+						性别： <input type="text" v-model="newPerson.sex"/>
+					</div>
+				</div>
+				<div slot="footer">
+					<button @click="closeDialog">关闭</button>
+					<button @click="addNewPerson">关闭</button>
+				</div>
+			</mydialog>
+		</div>	
+			
+		<!-- 弹窗模版 -->
+		<script type="text/x-template" id="dialog">
+			<div class="dialog-wrap" :class="{bgshow: dialogshow}" v-on:click.self="dialogClose">
+				<div class="dialog">
+					<div class="dialog-content">
+						<div class="dialog-close" @click="dialogClose"></div>
+						<div class="dialog-head">
+							<slot name="header"></slot>
+						</div>
+						<div class="dialog-body">
+							<slot name="body"></slot>
+						</div>
+						<div class="dislog-footer">
+							<slot name="footer"></slot>
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
+		
+		<script>
+			//注册全局组件
+			Vue.component("mydialog", {
+				template: "#dialog",
+				props: ["dialogshow"],
+				methods: {
+					dialogClose: function(){
+						console.log("进来了");
+						this.$emit("close-dialog");
+					}
+				}
+			}); 
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					tableHead: ['name', "age", "sex", "delete"],
+					searchKey: "",
+					datalist: [
+					{name:"jack", age:"20", sex:"男"},
+					{name:"jack", age:"10", sex:"男"},
+					{name:"jack", age:"26", sex:"男"},
+					{name:"我是中文来着", age:"29", sex:"男"}
+					],
+					dialogShow: false,
+					newPerson: {
+						name: "",
+						age: "",
+						sex: ""
+					}
+				},
+				methods: {
+					delData: function(item){
+						console.log(index);
+						var index = this.datalist.indexOf(item);
+						this.datalist.splice(index, 1);
+					},
+					closeDialog: function(){
+						console.log(1111);
+						this.dialogShow = false;
+					},
+					createDialog: function(){
+						this.dialogShow = true;
+					},
+					addNewPerson: function(){
+						this.datalist.push(this.newPerson);
+						this.closeDialog();
+						this._emptyNewPerson();
+					},
+					_emptyNewPerson: function(){ //这里要用钩子函数调用
+						for(key in this.newPerson){
+							this.newPerson[key] = "";
+						}
+					}
+				},
+				computed: {
+					computeddatalist: function(){
+						if( this.searchKey == ""){
+							return this.datalist;
+						}
+						return this.datalist.filter(function(item){ //这里面的this指向会出现问题
+							for(key in item){
+								if( item[key].indexOf(this.searchKey) != -1){
+									return true;
+								}
+							}
+						}.bind(this));
+					}
+				},
+				filters: {
+					capitalize: function(value){
+						if (!value) return '';
+					    value = value.toString();
+					    return value.charAt(0).toUpperCase() + value.slice(1);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

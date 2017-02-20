@@ -136,3 +136,6 @@ https://www.w3.org/TR/css3-box/#margins
 
 vue + node.js实现博客系统
 https://github.com/nswbmw/N-blog
+
+vue 资源
+https://github.com/maidishike/FrontEnd-Wikis/blob/master/vuejs.md

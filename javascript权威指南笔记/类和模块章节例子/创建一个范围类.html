@@ -25,18 +25,19 @@
 				r.to = to;
 				return r;
 			}
+			
 			range.method = {
-				 inculdes: function(x) {
+				inculdes: function(x) {
 				 	return this.from <= x && this.to >= x;
-				 },
-				 foreach: function(f) {
+				},
+				foreach: function(f) {
 				 	for(var i = Math.ceil(this.from); i < this.to; i++){
 				 		f(i);
 				 	}
-				 },
-				 toString: function(){
+				},
+				toString: function(){
 				 	return this.from + "....." + this.to;
-				 }
+				}
 			}
 			
 			//range构造函数方式实现
@@ -45,11 +46,10 @@
 				this.to = to;
 			}
 			range.prototype = {
-				includes: function(x) {
-					
+				includes: function(x) {	
 				},
 				foreach: function(f) {
-					
+	
 				},
 				tostring: function() {
 					return 
