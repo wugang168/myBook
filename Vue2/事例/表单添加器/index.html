@@ -41,7 +41,6 @@
 				height: 30px;
 				box-sizing: border-box;
 			}
-			
 			/*弹出层组件样式*/
 			.dialog-wrap {
 				position: fixed;
@@ -72,7 +71,6 @@
 				transform: translateX(0px);
 				opacity: 1;
 			}
-			
 			.dialog-content {
 				width: 100%;
 				height: 100%;
@@ -96,6 +94,11 @@
 				height: 200px;
 				background: #fff;
 			}
+			
+			label {
+				width: 90px;
+				display: inline-block;
+			}
 		</style>
 	</head>
 	<body>
@@ -103,15 +106,16 @@
 			<div class="table-box">
 				<div class="table-head">
 					<input type="text" placeholder="输入要搜索的项" v-model="searchKey"/>
-					<input type="month" name="" id="" value="2017-1" min="2016-10" max="2017-10"/>
+					<!--<input type="month" name="" id="" value="2017-1" min="2016-10" max="2017-10"/>-->
 				</div>
 				<div class="table-continner">
 					<table>
 						<tr>
-							<th v-for="td in tableHead">{{ td | capitalize }}</th>
+							<th v-for="td in tableHead">{{ td.name | capitalize }}</th>
+							<th> Delete</th>
 						</tr>
 						<tr v-for=" (item, key) in computeddatalist ">
-							<td> {{ item.name }} </td>
+							<td > <a href="javascript:;" @click="openDialog(item, 2)">{{ item.name }}</a> </td>
 							<td> {{ item.age }} </td>
 							<td> {{ item.sex }} </td>
 							<td>
@@ -121,25 +125,22 @@
 					</table>
 				</div>
 				<div class="table-footer">
-					<button class="btn btn-create" @click="createDialog">创建</button>
+					<button class="btn btn-create" @click="openDialog(newPerson, 1)">创建</button>
 				</div>
-			</div>
+			</div>  
 			<mydialog v-bind:dialogshow="dialogShow" v-on:close-dialog="closeDialog">
 				<h1 slot="header">添加新的会员</h1>
 				<div slot="body">
-					<div>
-						姓名： <input type="text" v-model="newPerson.name"/>
-					</div>
-					<div>
-						年龄： <input type="text" v-model="newPerson.age"/>
-					</div>
-					<div>
-						性别： <input type="text" v-model="newPerson.sex"/>
+					<div v-for=" field in tableHead">
+						<label for="">{{ field.name }}：</label> 
+						<select v-if=" field.dataSource" v-model="newPerson[field.name]">
+							<option v-for="v in field.dataSource" :value="v" >{{v}}</option>
+						</select>
+						<input v-else type="text" v-model="newPerson[field.name]"/>
 					</div>
 				</div>
 				<div slot="footer">
-					<button @click="closeDialog">关闭</button>
-					<button @click="addNewPerson">关闭</button>
+					<button @click="addNewPerson">确定</button>
 				</div>
 			</mydialog>
 		</div>	
@@ -165,6 +166,14 @@
 		</script>
 		
 		<script>
+			
+			
+			var data = [
+					{name:"jack", age:"20", sex:"男"},
+					{name:"jack", age:"10", sex:"男"},
+					{name:"jack", age:"26", sex:"男"},
+					{name:"我是中文来着", age:"29", sex:"男"}
+					];
 			//注册全局组件
 			Vue.component("mydialog", {
 				template: "#dialog",
@@ -180,42 +189,58 @@
 				el: "#app",
 				data: {
 					tableHead: ['name', "age", "sex", "delete"],
-					searchKey: "",
-					datalist: [
-					{name:"jack", age:"20", sex:"男"},
-					{name:"jack", age:"10", sex:"男"},
-					{name:"jack", age:"26", sex:"男"},
-					{name:"我是中文来着", age:"29", sex:"男"}
+					tableHead: [
+						{ name: "name", iskey: true},
+						{ name: "age"},
+						{ name: "sex", dataSource:["男", "女"] }
 					],
+					searchKey: "",
+					datalist: data,
 					dialogShow: false,
 					newPerson: {
 						name: "",
 						age: "",
 						sex: ""
-					}
+					},
+					editModel: 1,   //当前的编辑模式1：添加， 2：编辑
+					editIndex: null
 				},
 				methods: {
 					delData: function(item){
-						console.log(index);
 						var index = this.datalist.indexOf(item);
 						this.datalist.splice(index, 1);
 					},
 					closeDialog: function(){
-						console.log(1111);
 						this.dialogShow = false;
+						this.newPerson = {};
 					},
-					createDialog: function(){
+					openDialog: function(item, modelType){
 						this.dialogShow = true;
+						this.modelType = modelType;
+						this.editIndex = this.datalist.indexOf(item);
+						for(var k in item){
+							this.newPerson[k] = item[k];
+						}
 					},
 					addNewPerson: function(){
-						this.datalist.push(this.newPerson);
-						this.closeDialog();
-						this._emptyNewPerson();
-					},
-					_emptyNewPerson: function(){ //这里要用钩子函数调用
-						for(key in this.newPerson){
-							this.newPerson[key] = "";
+						if( this.modelType == 1){
+							
+							console.log(this.newPerson);
+							
+							
+							this.datalist.push(this.newPerson);
+							this.searchKey = "";
+						}else{
+							this.datalist[this.editIndex] = this.newPerson;
 						}
+						this.closeDialog();
+					},
+					_newItem: function(){ //因为是对象,可能会有深度复制
+						var obj = {};
+						for(key in this.newPerson){
+							obj[key] = this.newPerson[key];
+						}
+						return obj;
 					}
 				},
 				computed: {
@@ -223,7 +248,7 @@
 						if( this.searchKey == ""){
 							return this.datalist;
 						}
-						return this.datalist.filter(function(item){ //这里面的this指向会出现问题
+						return this.datalist.filter(function(item){ //这里面的this指向会出现问题  可以使用es6中的箭头函数来处理
 							for(key in item){
 								if( item[key].indexOf(this.searchKey) != -1){
 									return true;

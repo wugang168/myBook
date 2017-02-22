@@ -139,3 +139,13 @@ https://github.com/nswbmw/N-blog
 
 vue 资源
 https://github.com/maidishike/FrontEnd-Wikis/blob/master/vuejs.md
+
+
+HTML5移动适配方案
+http://www.tuicool.com/articles/nmm6reE
+http://js8.in/2015/12/12/手机百度移动适配切图解决方案介绍/
+
+
+提
+https://github.com/markyun/My-blog/tree/master/Front-end-Developer-Questions/Questions-and-Answers
+https://github.com/ShanaMaid/frontend-guidelines-zh-CN

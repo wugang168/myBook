@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<title></title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.clearfix {
+				clear: both;
+				zoom: 1;
+			}
+			li {
+				list-style: none;
+			}
+			.m-select {
+				width: 300px;
+				height: auto;
+				padding: 5px;
+				border-radius: 16px;
+				border: 1px solid #E2E5FD;
+				background: #E2E5FD;
+			}
+			.m-select-head {
+				overflow: hidden;
+			}
+			.m-select-input{
+				width: 220px;
+				background: #D7D9E2;
+				margin-right: 10px;
+			}
+			.m-select-btn {
+				background: #FF725B;
+				min-width: 70px;
+				cursor: pointer;
+			}
+			.m-select-input,.m-select-btn {
+				float: left;
+				height: 35px;
+				line-height: 35px;
+				padding: 0 15px;
+				outline: 0;
+				border: 0;
+				border-radius: 16px;
+				box-sizing: border-box;
+			}
+			.m-select-list {
+				width: 220px;
+				padding: 10px 0;
+			}
+			.m-select-list li {
+				height: 35px;
+				line-height: 35px;
+				padding: 0 10px;
+				border-radius: 16px;;
+			}
+			.m-select-list li:hover {
+				background: #FF725B;
+			}
+			
+			.box-div {
+				width: 600px;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="" id="app">
+			<div class="box-div">
+				<custom-select btn-value="GO" :list-data="listData"></custom-select>
+				<p>测试组件</p>
+				<custom-select btn-value="搜索" :list-data="listData"></custom-select>
+			</div>
+		</div>
+		<script type="text/x-template" id="#custom-select">
+		</script>
+		
+		<script>
+			Vue.component("custom-select",{
+				template: 
+				`
+				<div class="m-select">
+					<div class="m-select-head clearfix">
+						<input class="m-select-input" type="text" @click="isShow = !isShow" v-bind:value="selectValue" />
+						<button class="m-select-btn">{{btnValue}}</button>
+						<span class="m-select-icon"></span>
+					</div>
+					<ul v-show="isShow" class="m-select-list">
+						<li v-for="item in listData" @click="selectValue = item">{{item}}</li>
+					</ul>
+				</div>
+				`,
+				props:["btn-value", "list-data"],
+				data: function(){
+					return {
+						isShow: false,
+						selectValue: '',
+					}
+				},
+				methods: {
+				}
+			});
+			
+		
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					isShow: false,
+					selectValue: '',
+					listData: ["html", "css", "js"]
+				},
+				methods: {
+				},
+				filter: {
+				},
+				computed: {
+				}
+			});
+		</script>
+	</body>
+</html>
