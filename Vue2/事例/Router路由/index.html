@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<title>Router 路由测试</title>
+		<style>
+			* { padding: 0; margin: 0; }
+			.tab { height: 30px; width: 200px; border: 1px solid red; line-height: 30px;}
+			.tab li{ width: 100px; float: left; text-align: center; color: green; list-style: none; cursor: pointer}
+			.tab-box { width: 200px; height: auto; margin-top: 30px; border: 1px solid sandybrown}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<h1>hello world</h1>
+			<ul class="tab">
+				<li>去组件一</li>
+				<li>去组件二</li>
+			</ul>
+			<p>
+				<router-link to="/com1">Go to Foo</router-link>
+    			<router-link to="/com2">Go to Bar</router-link>
+			</p>
+			<div class="tab-box">
+				<router-view>这里居然可以有默认的内容</router-view>
+			</div>
+		</div>
+		<script>
+			//定义组件配置对象
+			var component1 = { template: "<div>我是组件一</div>"};
+			var component2 = { template: "<div>我是组件二</div>"};
+			
+			//配置路由，组件和路径的映射
+			var routes = [
+				{ path: "/com1", component: component1},
+				{ path: "/com2", component: component2}
+			];
+			
+			//实例路由对象
+			var router = new VueRouter({
+				routes: routes
+			});
+			
+			//实例话vue根实例
+			var vm = new Vue({
+				el: "#app",
+				router: router
+			});
+		</script>
+	</body>
+</html>

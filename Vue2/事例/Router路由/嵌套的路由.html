@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<title>Router 路由测试</title>
+		<style>
+			* { padding: 0; margin: 0; }
+			.tab { height: 30px; width: 200px; border: 1px solid red; line-height: 30px;}
+			.tab li{ width: 100px; float: left; text-align: center; color: green; list-style: none; cursor: pointer}
+			.tab-box { width: 200px; height: auto; margin-top: 30px; border: 1px solid sandybrown}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<router-view></router-view>
+			<!--<h1>hello world</h1>
+			<ul class="tab">
+				<li>去组件一</li>
+				<li>去组件二</li>
+			</ul>
+			<p v-if="navStatus">
+				<router-link to="/user/100">用户中心</router-link>
+				<router-link to="/user/100/info">用户中心</router-link>
+				<router-link to="/user/100/jfen">用户积分</router-link>
+				<router-link to="/home">去首页</router-link>
+			</p>
+			<div class="tab-box">
+				<router-view>这里居然可以有默认的内容</router-view>
+			</div>-->
+		</div>
+		
+		
+		<script type="x-template" id="defaultcom">
+			<div>
+				<h1>hello world</h1>
+				<!--<ul class="tab">
+					<li>去组件一</li>
+					<li>去组件二</li>
+				</ul>-->
+				<p v-if="navStatus">
+					<router-link to="/user/100">用户中心</router-link>
+					<router-link to="/user/100/info">用户中心</router-link>
+					<router-link to="/user/100/jfen">用户积分</router-link>
+					<router-link to="/home">去首页</router-link>
+				</p>
+				<div class="tab-box">
+					<router-view>这里居然可以有默认的内容</router-view>
+				</div>
+			</div>
+		</script>
+		
+		<script>
+			//定义组件配置对象
+			var user = { 
+				template: "<div><h1>欢迎来到用户中心</h1><p></p><div><router-view></router-view></div></div>",
+				data: function(){
+					return {
+						innerText: ""
+					}
+				},
+				mounted: function(){
+					console.log("构建成功");
+				},
+				watch: {
+					'$route': function(to, from){
+						//这里在变化的时候更具参数来,重新加载新的数据
+						console.log(this.$route);
+						this.innerText = "来的路由是" + from.path + "\r\n 跳转到的路由是"+  to.path;
+					}
+				}
+			};
+			
+			var defaultCom = {
+				template: "#defaultcom",
+				data: function(){
+					return commonData;
+				}
+			}
+			
+			var userinfo = {
+				template: "<div>我是用户的详细信息 </div>"
+			};
+			var jfen = {
+				template: "<div>我是用户的积分信息  <span @click='goback'>返回上一部</span></div>",
+				methods: {
+					goback: function(){
+//						commonData.navStatus = false;
+						router.push("404");
+					}
+				}
+			};
+			var c404 = {
+				template: "<div><h1>404</h1></div>"
+			};
+			var nofound = {
+				template: "<div>空路由默认的提示 </div>"
+			};
+			var home = {
+				template: "<div>我到了首页了   <router-link to='404'>去404</router-link></div>",
+				mounted: function(){
+					console.log("构建成功");
+				},
+				watch: {
+					'$route': function(to, from){
+						//这里在变化的时候更具参数来,重新加载新的数据
+						console.log(this.$route);
+						this.innerText = "来的路由是" + from.path + "\r\n 跳转到的路由是"+  to.path;
+					}
+				}
+			};
+			//配置路由，组件和路径的映射
+			var routes = [
+				{ path: "/user/:id", component: defaultCom,
+				  children: [
+				  	{ path: "", component: nofound},
+				  	{ path: "info", component: userinfo},
+				  	{ path: "jfen", component: jfen}
+				  ]
+				},
+//				{ path: "/user/:id/info", component: userinfo},
+//				{ path: "/user/:id/jfen", component: jfen},
+				{
+					path: "/home", 
+					component: home
+				},
+				{
+					path: "/404",
+					name: "404",
+					component: c404
+				},
+				{
+					path: "", component: defaultCom
+				}
+			];
+			
+			//实例路由对象
+			var router = new VueRouter({
+				routes: routes
+			});
+			
+			var commonData = {
+				navStatus: true
+			}
+			
+			//实例话vue根实例
+			var vm = new Vue({
+				el: "#app",
+				router: router
+			});
+		</script>
+	</body>
+</html>
+
+
