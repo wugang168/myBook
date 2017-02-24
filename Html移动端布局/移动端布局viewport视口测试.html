@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=0.326530, user-scalable=no">
+		<title></title>
+		<style>
+			* { padding: 0; margin: 0; } 
+			html, body{
+				width: 100%;
+				height: 100%;
+			}
+			.box {
+				width: 1000px;
+				height: 100%;
+				background: red;
+			}
+		</style>
+		<!--
+			移动端的宽度继承机制
+				html的宽度,默认是继承设备的视口宽度		
+		-->
+	</head>
+	<body>
+		<div class="box">
+			
+		</div>
+		<script>
+			console.log(document.documentElement.getBoundingClientRect());
+			console.log(window.innerWidth);
+			console.log(document.documentElement.clientWidth);
+		</script>
+	</body>
+</html>
