@@ -1,0 +1,41 @@
+其实就是把异步代码处理给更好的封装了
+
+相关联的：
+	事件模型
+	回调模式
+
+Promise 是为异步操作的结果所准备的占位符,异步的处理结果可以在稍后处理
+函数可以返回一个 Promise,通畅异步处理的函数可以返回一个Promise
+
+Promise的生命周期
+	它有内部的状态,私有的不对外公开的
+	pending    	挂起状态
+	fulfilled 	已完成
+	rejected	以拒绝
+	
+	通过then()方法在promise状态改变的时候做一些处理
+	通过catch()方法来处理 拒绝处理或者错误处理
+	
+	例子：
+		then(function(){成功}, function(){失败});
+		then(function(){成功}).catch(function(err){失败});
+		
+	
+实例一个promise对象
+	new Promise(funtion(resolve, reject){
+		这里就是执行器会立即执行
+		在内部处理中
+		成功调用resolve
+		失败调用reject
+		这是因为完成处理函数与拒绝处理函数总是会在执行器的操作结束后被添加到作业队列的尾部。
+		他们只是被添加的作业队列尾部,在前面的队列完成后才会执行
+	})
+	
+	var newPro = new Promise(function(resolve, reject){
+		reject("错了吗");
+		resolve(45);
+		
+		不能想这样同时调用连个,规则是 谁先用就是谁了,前面的替代后面的
+	});	
+	
+	

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+//			let p1 = new Promise(function(resolve, reject) {
+//				resolve(42);
+//			});
+//			p1.then(function(value) {
+//				
+//				console.log(value);
+//				
+//			}).then(function() {
+//				
+//				console.log("Finished");
+//				
+//			}).then(function(){
+//				console.log("再来一个");
+//			}).then(function(){
+//				console.log("这样可以无限下去呀");
+//			});
+			
+			new Promise(function(resolve, reject){
+				resolve(42);
+			}).then(function(num){
+				console.log(num);
+				return new Promise(function(resolve, reject){
+					resolve(num);
+				})
+			}).then(function(num){
+				console.log(num);
+				return new Promise(function(resolve, reject){
+					resolve(num);
+				})
+			}).then(function(num){
+				console.log(num);
+				return new Promise(function(resolve, reject){
+					resolve(num);
+				})
+			})
+		</script>
+	</body>
+</html>

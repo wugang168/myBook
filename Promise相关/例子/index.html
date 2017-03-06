@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			console.log(Promise);
+			if( Promise ) {
+				console.log("可以使用特性：Promise");
+			}
+			var pro = (function(){
+				
+				return new Promise(function(resolve, reject){
+					
+					$.post(url, data, function(content){
+						
+						if(content.status) {
+							resolve(content);
+						}else{
+							reject(err);
+						}
+						
+					}, "json");
+
+					setTimeout(resolve.bind(null, "开始执行了"), 4000);
+					//使用异步请求数据返回一个promise对象
+					
+				});
+			})();
+			pro.then(function(contents){
+				console.log(contents);
+			}).catch(function(){
+			});
+
+			//创建已决的promise
+			var newPro = new Promise(function(resolve, reject){
+				reject("错了吗");
+				resolve(45);
+			});
+			
+			newPro.then(function(num){
+				console.log(num);
+			}).catch(function(err){
+				console.log(err);
+			});
+
+			//拒绝的状态
+			let proReject = Promise.reject(42);
+			proReject.catch(function(num){
+				console.log("这里是拒绝状态");
+				console.log(num);
+			});
+			
+			
+			//非promise
+			let thenable = {
+					then: function(resolve, reject) {
+						resolve(49);
+					}
+			};
+			let p1 = Promise.resolve(thenable);
+			p1.then(function(value) {
+				console.log(value); // 42
+			});
+			
+		</script>
+	</body>
+</html>

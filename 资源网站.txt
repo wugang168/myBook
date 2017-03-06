@@ -139,7 +139,8 @@ https://github.com/nswbmw/N-blog
 
 vue 资源
 https://github.com/maidishike/FrontEnd-Wikis/blob/master/vuejs.md
-
+axios教程
+https://ykloveyxk.github.io/2017/02/25/axios%E5%85%A8%E6%94%BB%E7%95%A5/#more
 
 HTML5移动适配方案
 http://www.tuicool.com/articles/nmm6reE
@@ -149,3 +150,12 @@ http://js8.in/2015/12/12/手机百度移动适配切图解决方案介绍/
 提
 https://github.com/markyun/My-blog/tree/master/Front-end-Developer-Questions/Questions-and-Answers
 https://github.com/ShanaMaid/frontend-guidelines-zh-CN
+
+无限下拉滚动
+http://www.jianshu.com/p/2f3bc2598dc5#
+
+浏览器的渲染过程
+https://zhuanlan.zhihu.com/p/25554352
+
+H5下拉刷新
+https://isux.tencent.com/h5-drop-down-effect-slide.html
