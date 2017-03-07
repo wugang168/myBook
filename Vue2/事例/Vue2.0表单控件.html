@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<title></title>
+		<style>
+			.form-box {
+				width: 300px;
+				height: 500px;
+				border: 1px solid red;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!--v-model-->
+			<div class="form-box">
+				<input v-model="message" name="message" :value="message" placeholder="请输入你的数组"/>
+				<p>
+					你输入的数字是： {{ message }}
+				</p>
+			</div>
+			
+			<!--v-bind模拟-->
+			<div class="form-box">
+				<input type="text" name="messageBind" v-on:input="inputchage" v-bind:value="messageBind" placeholder="请输入你的数组"/>
+				<p>
+					你输入的数字是： {{ messageBind }}
+				</p>
+			</div>
+			
+			<div class="form-box">
+				<textarea v-model="textareaTxt" placeholder="add multiple lines">{{ textareaTxt }}</textarea>
+				<p>
+					{{ textareaTxt }}
+				</p>
+			</div>
+			
+			<div class="form-box">
+				<input type="checkbox" id="checkbox" v-model="checked">
+				<label for="checkbox">{{ checked }}</label>
+			</div>
+		</div>
+		<script>
+			
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					message: "",
+					messageBind: "",
+					textareaTxt: "我是textarea的文本",
+					checked: false
+				},
+				methods: {
+					inputchage: function(event){
+						console.log("进来了");
+						this.messageBind = event.target.value;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
