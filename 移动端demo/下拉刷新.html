@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="format-detection" content="telephone=no"> <!-- 是否自动识别手机号码  -->
+		<meta content="email=no" name="format-detection">
+		<meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" href="./asset/base.css" />
+		<title>下拉刷新</title>
+	</head>
+	<body>
+		<div class="page">
+			<div class="content top-refresh-content" id="refresh">
+				<!--默认的下拉刷新层-->
+				<div class="refresh-layer">
+					<div></div>
+				</div>
+				<!--容器-->
+				<div class="card-list">
+					<ul>
+						<li>测试数据测试数据</li>
+						<li>测试数据测试数据</li>
+						<li>测试数据测试数据</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="asset/zepto.min.js" ></script>
+		<script>
+			var targetDiv = $("#refresh");
+			targetDiv[0].addEventListener("touchmove", touchMove, false);
+			
+			targetDiv[0].addEventListener("touchstart", touchStart, false);
+			
+			targetDiv[0].addEventListener("touchend", touchEnd, false);
+			
+			function touchStart(e) {
+				if( targetDiv.scrollTop() <= 0 ){
+					direction = "up";
+				}
+				if( direction ){
+					isTouchStart = isScale = true;
+					startX = e.changedTouches[0].pageX;
+					startY = e.changedTouches[0].pageY;
+					console.log(startX + "|" + startY);
+				}
+			}
+			
+			function touchMove(e) {
+				if( isTouchStart ) {
+					var dDis = Math.abs(e.changedTouches[0].pageX-startX) - Math.abs(e.changedTouches[0].pageY-startY);
+					if( dDis > 1 ) {
+						return false;
+					}
+					var currentH = - (startY - e.changedTouches[0].pageY)/2;
+					targetDiv.css({"transform": "translateY(" + currentH + "px)"});
+				}
+			}
+			
+			function touchEnd(e) {
+				if( isTouchStart && isScale ) {
+					var distanceY = e.changedTouches[0].pageY - startY;
+					var time = distanceY;
+					if( time < 150 ) {
+						time = 150;
+					}else if( time > 250 ) {
+						time = 250;
+					}
+					to(targetDiv, "translateY", 0, time, iosEase, onChange, function(){
+						isScale = false;
+					});
+				}
+			}
+			
+			function onChange(value) {
+				if( direction == "up" ) {
+					
+				}
+			}
+			
+			//运动函数
+			function iosEase(x) {
+				return Math.sqrt(1 - Math.pow(x - 1, 2));
+			}
+			
+			var tickID = 0;
+			
+			function to(el, property, value, time, ease, onChange, onEnd) {
+				var current = /\.*translateY\((.*)px\)/i.exec(el.css("transform"))[1];   //回弹的时候最大值
+				var dv = value - current;  //需要回弹的距离
+				var beginTime = new Date();  //开始时间
+				var toTick = function(){
+					var dt = new Date() - beginTime;  //单次帧的时间
+					if( dt >= time ){
+						el.css({"transform": "translateY(" + value + "px)"})
+						console.log("回原了");
+						return;
+					}
+					var juli = dv * ease(dt / time) + parseInt(current) ;
+					
+					
+					console.log(juli);
+					
+					el.css({"transform": "translateY(" + juli  + "px)"});
+					tickID = requestAnimationFrame( toTick );
+//					onChange && onChange( el[property] );
+				}
+				toTick();
+			}
+		</script>
+	</body>
+</html>
