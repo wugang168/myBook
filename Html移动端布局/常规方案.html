@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<script>
+			(function(){
+				document.addEventListener('DOMContentLoaded', function() {
+					var html = document.documentElement;
+					var viewport = document.getElementById("viewport");
+					var windowWidth = html.clientWidth > 750 ? 750 : html.clientWidth;
+					if (html.clientWidth > 750) {
+						viewport.attributes.content = "width=750, initial-scale=1, maximum-scale=1, user-scalable=no";
+					}
+					html.style.fontSize = windowWidth / 3.75 + 'px';
+				}, false);
+			})();
+		</script>
+		<title>常规布局方案</title>
+		<style>
+			* { padding: 0; margin: 0; }
+			html, body {
+				width: 100%;
+				height: 100%;
+			}
+			body {
+				font-size: 12px;
+			}
+			.wrap {
+				width: 100%;
+				height: 100%;
+			}
+			header {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 0.5rem;
+				line-height: 0.5rem;
+				background: red;
+			}
+			nav a {
+				width: 25%;
+				display: inline-block;
+				font-size: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<header>
+				<nav>
+					<a href="">标题一</a>
+					<a href="">标题一</a>
+					<a href="">标题一</a>
+					<a href="">标题一</a>
+				</nav>
+			</header>
+		</div>
+	</body>
+</html>
+

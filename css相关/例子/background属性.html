@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box1 {
+				width: 200px;
+				height: 200px;
+				border: 10px solid rgba(0,0,0,0.8);
+				background-color: #fff;
+				background-image: url(../../测试/image/1.jpg);
+				background-origin: border-box;
+				background-attachment: fixed;
+			}
+			.box3 {
+				width: 200px;
+				height: 200px;
+				position: relative;
+			}
+			.box3 img {
+				width: 200px;
+				height: 200px;
+			}
+			.box4 {
+				box-sizing: border-box;
+				position: absolute;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				border: 100px solid rgba(0,0,0,0.8);
+				/*background-image: url(../../测试/image/1.jpg);*/
+				background-origin: border-box;
+				background-size: cover;
+				transition: all .4s;
+			}
+			.box3:hover .box4   {
+				border-width: 0;
+			}
+			.box5 {
+				width: 500px;
+				height: 500px;
+				border: 1px solid red;
+				padding: 100px;
+				background-image: url(../../测试/image/1.jpg);
+				background-repeat: no-repeat;
+				padding: 100px;
+				background-clip: content-box;
+				background-color: red;
+				background-size: cover;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box1">
+			<div class="box2">
+			</div>
+		</div>
+		<div class="box5">
+		</div>
+		<div>
+			<img src="../../测试/image/1.jpg" alt="" />
+		</div>
+		<div class="box3">
+			<img src="../../测试/image/1.jpg" alt="" />
+			<div class="box4">
+			</div>
+		</div>
+		<div style="height: 5000px;">
+		</div>
+	</body>
+</html>

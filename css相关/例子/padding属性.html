@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body {
+				font-size: 14px;
+			}
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.padding-box {
+				width: 400px;
+				height: 500px;
+				padding: 20px;
+				border: 1px solid red;
+			}
+			.inner-box {
+				border: 1px solid green;
+				padding: 0 20px;
+				margin-top: -20px;
+				margin-left: 100px;
+				margin-right: 200px;
+			}
+			
+			.inner-box1 {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 0px;
+				width: 500px;
+				padding-top: 50%;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="padding-box">
+			<div class="inner-box">
+				我是里面的内部元素
+			</div>
+			<div class="inner-box1">
+				我是内容来着
+			</div>
+		</div>
+	</body>
+</html>

@@ -105,17 +105,15 @@ https://webpack-china.org/
 全景地图
 https://isux.tencent.com/3d.html
 
-	看云文档
+看云文档
 http://www.kancloud.cn/shellway/npm-doc/199981
 http://www.kancloud.cn/dennis/javascriptmethod/261471
 
 切图工具
 https://blog.jimdono.com/qian-duan-qie-tu-shen-qi-avocode/
 
-
 快速构建H5模版
 https://aotu.io/notes/2017/01/17/elf/
-
 
 实现一个组件写法
 https://github.com/purplebamboo/demo-richbase
@@ -128,3 +126,37 @@ http://www.zcfy.cc/article/clean-code-javascript-readme-md-at-master-ryanmcdermo
 
 javascirpt基础只是所谓大图
 http://www.aseoe.com/special/jsswdt/
+
+
+margin的详细解说
+http://www.ituring.com.cn/article/65344
+
+W3C css标准
+https://www.w3.org/TR/css3-box/#margins
+
+vue + node.js实现博客系统
+https://github.com/nswbmw/N-blog
+
+vue 资源
+https://github.com/maidishike/FrontEnd-Wikis/blob/master/vuejs.md
+axios教程
+https://ykloveyxk.github.io/2017/02/25/axios%E5%85%A8%E6%94%BB%E7%95%A5/#more
+
+HTML5移动适配方案
+http://www.tuicool.com/articles/nmm6reE
+http://js8.in/2015/12/12/手机百度移动适配切图解决方案介绍/
+
+
+提
+https://github.com/markyun/My-blog/tree/master/Front-end-Developer-Questions/Questions-and-Answers
+https://github.com/ShanaMaid/frontend-guidelines-zh-CN
+
+无限下拉滚动
+http://www.jianshu.com/p/2f3bc2598dc5#
+https://gold.xitu.io/post/58a3c81e128fe10058c57a8b
+
+浏览器的渲染过程
+https://zhuanlan.zhihu.com/p/25554352
+
+H5下拉刷新
+https://isux.tencent.com/h5-drop-down-effect-slide.html
