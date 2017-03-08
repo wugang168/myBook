@@ -14,55 +14,150 @@
 	</head>
 	<body>
 		<div class="page">
-			<div class="content top-refresh-content" id="refresh">
-				<!--默认的下拉刷新层-->
-				<div class="refresh-layer">
-					<div></div>
+			<header>
+				<nav>
+					<a href=""></a>
+				</nav>
+			</header>
+			
+			<div class="main">
+				<!--加载提示-->
+				<div class="refresh-msg">有两条新的订单来了</div>
+				<div class="refresh-layer-bottom">
+					加载更多...
 				</div>
-				<!--容器-->
-				<div class="card-list">
-					<ul>
-						<li>测试数据测试数据</li>
-						<li>测试数据测试数据</li>
-						<li>测试数据测试数据</li>
-					</ul>
+				<div class="content top-refresh-content" id="refresh">
+					<!--默认的下拉刷新层-->
+					<div class="refresh-layer">
+						<div class="refresh-txt refresh"><span class="icon icon-refresh"></span>正在刷新...</div>
+						<div class="refresh-txt tip-refresh"><span class="icon icon-refresh-arrow"></span>下拉可刷新</div>
+					</div>
+					
+					
+					<!--容器-->
+					<div class="card-list">
+						<ul id="list">
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							<li>测试数据测试数据</li>
+							
+						</ul>
+						
+						<div style="height: 60px; line-height: 60px;text-align: center;">
+							正在加载更多...
+						</div>
+					</div>
 				</div>
+				
+				
 			</div>
+			
+			
 		</div>
 		<script type="text/javascript" src="asset/zepto.min.js" ></script>
 		<script>
 			var targetDiv = $("#refresh");
-			targetDiv[0].addEventListener("touchmove", touchMove, false);
-			
-			targetDiv[0].addEventListener("touchstart", touchStart, false);
-			
-			targetDiv[0].addEventListener("touchend", touchEnd, false);
+			var refresh = $(".refresh");
+			var refreshMsg = $(".refresh-msg");
+			var isDownLa = true;
+			var list = $("#list");
+			var bottomTop = targetDiv.height() - $(window).height();
+			var str = "<li>测试数据测试数据111</li>";
+			$("body")[0].addEventListener("touchmove", touchMove, true);
+			$("body")[0].addEventListener("touchstart", touchStart, false);
+			$("body")[0].addEventListener("touchend", touchEnd, false);
 			
 			function touchStart(e) {
-				if( targetDiv.scrollTop() <= 0 ){
+				if( $(".main").scrollTop() <= 0 ){
 					direction = "up";
+				}else if( $(".main").scrollTop() >= bottomTop - 10){
+					direction = "down";
+				}else{
+					direction = null;
 				}
-				if( direction ){
-					isTouchStart = isScale = true;
-					startX = e.changedTouches[0].pageX;
-					startY = e.changedTouches[0].pageY;
-					console.log(startX + "|" + startY);
-				}
+				//记录开始的位置
+				startX = e.changedTouches[0].pageX;
+				startY = e.changedTouches[0].pageY;
 			}
 			
 			function touchMove(e) {
-				if( isTouchStart ) {
-					var dDis = Math.abs(e.changedTouches[0].pageX-startX) - Math.abs(e.changedTouches[0].pageY-startY);
-					if( dDis > 1 ) {
-						return false;
-					}
-					var currentH = - (startY - e.changedTouches[0].pageY)/2;
-					targetDiv.css({"transform": "translateY(" + currentH + "px)"});
+				//排除左右横滚
+				var dDis = Math.abs(e.changedTouches[0].pageX-startX) - Math.abs(e.changedTouches[0].pageY-startY);
+				if( dDis > 0 || !isDownLa ) {
+					return false;
 				}
+				lastY = e.changedTouches[0].pageY;
+
+					if(lastY - startY > 0 && direction=='up'){
+							isTouchStart = true;
+			                // 下滑 
+							var currentH = - (startY - e.changedTouches[0].pageY)/2;
+							console.log(currentH);
+							if( currentH >= 50 ) {
+								$(".tip-refresh").addClass("isRefresh");
+							}	
+							if( currentH >= 150 ) {
+								currentH = 150;
+							}
+							if( currentH < 0 ){
+								currentH = 0;
+							}
+							targetDiv.css({"transform": "translateY(" + currentH + "px)"});
+	
+			        } else if(lastY - startY < 0  && direction=='down'){
+//			        		isTouchStart = true;
+//			                // 上滑
+//			                var currentY = -(startY-e.changedTouches[0].pageY)/2
+//			                if (currentY<-60){
+//			                    currentY = -60
+//			                }
+//			                targetDiv.css({"transform": "translateY(" + currentY + "px)"});
+			        }else if( lastY - startY < 0 && direction=='up' ){
+			        		isTouchStart = false;
+			        		targetDiv.css({"transform": "translateY(" + 0 + "px)"});
+			        }else{
+			        	isTouchStart = false;
+			        }
+			        e.preventDefault();
+			        e.stopPropagation();
+
 			}
 			
 			function touchEnd(e) {
-				if( isTouchStart && isScale ) {
+				
+				if( isTouchStart && isDownLa ) {
+					isDownLa = false;
 					var distanceY = e.changedTouches[0].pageY - startY;
 					var time = distanceY;
 					if( time < 150 ) {
@@ -70,8 +165,45 @@
 					}else if( time > 250 ) {
 						time = 250;
 					}
-					to(targetDiv, "translateY", 0, time, iosEase, onChange, function(){
+					
+					if( distanceY/2 < 50 ){
+						to(targetDiv, "translateY", 0, time, iosEase, onChange, function(){
+							isDownLa = true;
+						});
+						return ;
+					}
+
+					to(targetDiv, "translateY", 50, time, iosEase, onChange, function(){
 						isScale = false;
+						refresh.show();
+						//重置状态
+						$(".tip-refresh").removeClass("isRefresh").hide();
+						
+						setTimeout(function(){
+							//请求数据
+							to(targetDiv, "translateY", 0, time, iosEase, onChange, function(){
+								isScale = false;
+								isTouchStart = false;
+								refresh.hide();
+								//重置状态
+								$(".tip-refresh").show();
+								
+								isDownLa = true;
+								list.prepend(str);
+								
+								//请求数据
+								refreshMsg.css({"display": "block", "opacity": 0});
+								setTimeout(function(){
+									refreshMsg.css({"opacity": 1});
+								}, 0);
+								
+								//成功后关闭
+								setTimeout(function(){
+									refreshMsg.css({"transition": "opacity .5s"});
+									refreshMsg.css({"opacity": 0});
+								}, 1500);
+							});
+						}, 2000);
 					});
 				}
 			}
@@ -86,9 +218,7 @@
 			function iosEase(x) {
 				return Math.sqrt(1 - Math.pow(x - 1, 2));
 			}
-			
 			var tickID = 0;
-			
 			function to(el, property, value, time, ease, onChange, onEnd) {
 				var current = /\.*translateY\((.*)px\)/i.exec(el.css("transform"))[1];   //回弹的时候最大值
 				var dv = value - current;  //需要回弹的距离
@@ -98,19 +228,42 @@
 					if( dt >= time ){
 						el.css({"transform": "translateY(" + value + "px)"})
 						console.log("回原了");
+						onEnd && onEnd(value);
 						return;
 					}
 					var juli = dv * ease(dt / time) + parseInt(current) ;
-					
-					
 					console.log(juli);
-					
 					el.css({"transform": "translateY(" + juli  + "px)"});
 					tickID = requestAnimationFrame( toTick );
 //					onChange && onChange( el[property] );
 				}
 				toTick();
 			}
+			
+			
+			function debounce(fn, delay){
+					var timer = null;
+					return function(){
+						var content = this, args = arguments;
+						clearTimeout(timer);
+						timer = setTimeout(function(){
+							fn.apply(content, args);
+						}, delay);
+					}
+			}
+				
+			$(".main")[0].onscroll = debounce(function(){
+				var wholeHeight = this.scrollHeight; //滚动区域高度
+				var divScrollTop = $(this).scrollTop(); //卷上去的那部分高度
+				var divHeight = $(this).height(); //div的可视区域的高度
+				
+				console.log("滚动区域高度="+wholeHeight+"|"+"滚动的高度="+divScrollTop+"|"+"div的高度="+divHeight);
+				if(divScrollTop + divHeight + 50 >= wholeHeight) {
+					console.log("到底了");
+//					++count;
+//					getData();
+				}
+			}, 1000);
 		</script>
 	</body>
 </html>
