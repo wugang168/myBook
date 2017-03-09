@@ -13,27 +13,22 @@
 		<title>下拉刷新</title>
 	</head>
 	<body>
-		<div class="page">
+		<!--<div class="page">-->
 			<header>
 				<nav>
 					<a href=""></a>
 				</nav>
 			</header>
-			
 			<div class="main">
 				<!--加载提示-->
 				<div class="refresh-msg">有两条新的订单来了</div>
-				<div class="refresh-layer-bottom">
-					加载更多...
-				</div>
 				<div class="content top-refresh-content" id="refresh">
 					<!--默认的下拉刷新层-->
 					<div class="refresh-layer">
 						<div class="refresh-txt refresh"><span class="icon icon-refresh"></span>正在刷新...</div>
 						<div class="refresh-txt tip-refresh"><span class="icon icon-refresh-arrow"></span>下拉可刷新</div>
 					</div>
-					
-					
+
 					<!--容器-->
 					<div class="card-list">
 						<ul id="list">
@@ -43,7 +38,6 @@
 							<li>测试数据测试数据</li>
 							<li>测试数据测试数据</li>
 							<li>测试数据测试数据</li>
-							
 							<li>测试数据测试数据</li>
 							<li>测试数据测试数据</li>
 							<li>测试数据测试数据</li>
@@ -71,17 +65,15 @@
 							<li>测试数据测试数据</li>
 							<li>测试数据测试数据</li>
 							<li>测试数据测试数据</li>
-							
 						</ul>
-						
-						<div style="height: 60px; line-height: 60px;text-align: center;">
+						<div id="loading" class="loading">
 							正在加载更多...
 						</div>
 					</div>
 				</div>
 				
 				
-			</div>
+			<!--</div>-->
 			
 			
 		</div>
@@ -92,8 +84,9 @@
 			var refreshMsg = $(".refresh-msg");
 			var isDownLa = true;
 			var list = $("#list");
+			var loading = $("#loading");
 			var bottomTop = targetDiv.height() - $(window).height();
-			var str = "<li>测试数据测试数据111</li>";
+			var str = "<li>测试数据测试数据111</li><li>测试数据测试数据111</li><li>测试数据测试数据111</li>";
 			$("body")[0].addEventListener("touchmove", touchMove, true);
 			$("body")[0].addEventListener("touchstart", touchStart, false);
 			$("body")[0].addEventListener("touchend", touchEnd, false);
@@ -134,7 +127,7 @@
 								currentH = 0;
 							}
 							targetDiv.css({"transform": "translateY(" + currentH + "px)"});
-	
+							e.preventDefault();
 			        } else if(lastY - startY < 0  && direction=='down'){
 //			        		isTouchStart = true;
 //			                // 上滑
@@ -143,14 +136,13 @@
 //			                    currentY = -60
 //			                }
 //			                targetDiv.css({"transform": "translateY(" + currentY + "px)"});
+//							e.preventDefault();
 			        }else if( lastY - startY < 0 && direction=='up' ){
 			        		isTouchStart = false;
 			        		targetDiv.css({"transform": "translateY(" + 0 + "px)"});
 			        }else{
 			        	isTouchStart = false;
 			        }
-			        e.preventDefault();
-			        e.stopPropagation();
 
 			}
 			
@@ -251,19 +243,49 @@
 						}, delay);
 					}
 			}
+			
+			function getData() {
 				
+				if( count > 10 ){
+					loading.text("已经到底了")
+					$(".main")[0].onscroll = null;
+					return ;
+				}
+				setTimeout(function(){
+					list.append(str);
+				}, 1000);
+				
+				
+				return;
+//				$.post(config.url+"?p=" +count, {
+//					"p": count,
+//					"action": "page"
+//				}, function(data) {
+//					isScroll = data.isHave;
+//					if(!isScroll) {
+//						$("#js-noMore").show();
+//						scrollDiv.onscroll = null;
+//					}else{
+//						config.callbackBottom(data.list);
+//					}
+//				}, "json");
+			}
+			
+			var count = 0;
 			$(".main")[0].onscroll = debounce(function(){
 				var wholeHeight = this.scrollHeight; //滚动区域高度
 				var divScrollTop = $(this).scrollTop(); //卷上去的那部分高度
 				var divHeight = $(this).height(); //div的可视区域的高度
 				
 				console.log("滚动区域高度="+wholeHeight+"|"+"滚动的高度="+divScrollTop+"|"+"div的高度="+divHeight);
-				if(divScrollTop + divHeight + 50 >= wholeHeight) {
+				if(divScrollTop + divHeight + 100 >= wholeHeight) {
+					loading.css({"visibility": "visible"});
 					console.log("到底了");
-//					++count;
-//					getData();
+					++count;
+					getData();
+					console.log(count);
 				}
-			}, 1000);
+			}, 100);
 		</script>
 	</body>
 </html>
