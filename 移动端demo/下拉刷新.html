@@ -19,16 +19,14 @@
 					<a href=""></a>
 				</nav>
 			</header>
-			<div class="main">
+			<div class="main" id="main">
 				<!--加载提示-->
-				<div class="refresh-msg">有两条新的订单来了</div>
-				<div class="content top-refresh-content" id="refresh">
+				<div class="top-refresh-msg">有两条新的订单来了</div>
+				<div class="content top-refresh">
 					<!--默认的下拉刷新层-->
-					<div class="refresh-layer">
-						<div class="refresh-txt refresh"><span class="icon icon-refresh"></span>正在刷新...</div>
-						<div class="refresh-txt tip-refresh"><span class="icon icon-refresh-arrow"></span>下拉可刷新</div>
+					<div class="top-refresh-layer">
+						<div class="refresh-txt" id="js-statusView"><span class="icon icon-refresh-arrow-down"></span><span class="txt">下拉可刷新</span></div>
 					</div>
-
 					<!--容器-->
 					<div class="card-list">
 						<ul id="list">
@@ -71,221 +69,284 @@
 						</div>
 					</div>
 				</div>
-				
-				
 			<!--</div>-->
-			
-			
 		</div>
 		<script type="text/javascript" src="asset/zepto.min.js" ></script>
 		<script>
-			var targetDiv = $("#refresh");
-			var refresh = $(".refresh");
-			var refreshMsg = $(".refresh-msg");
-			var isDownLa = true;
-			var list = $("#list");
-			var loading = $("#loading");
-			var bottomTop = targetDiv.height() - $(window).height();
-			var str = "<li>测试数据测试数据111</li><li>测试数据测试数据111</li><li>测试数据测试数据111</li>";
-			$("body")[0].addEventListener("touchmove", touchMove, true);
-			$("body")[0].addEventListener("touchstart", touchStart, false);
-			$("body")[0].addEventListener("touchend", touchEnd, false);
-			
-			function touchStart(e) {
-				if( $(".main").scrollTop() <= 0 ){
-					direction = "up";
-				}else if( $(".main").scrollTop() >= bottomTop - 10){
-					direction = "down";
-				}else{
-					direction = null;
-				}
-				//记录开始的位置
-				startX = e.changedTouches[0].pageX;
-				startY = e.changedTouches[0].pageY;
-			}
-			
-			function touchMove(e) {
-				//排除左右横滚
-				var dDis = Math.abs(e.changedTouches[0].pageX-startX) - Math.abs(e.changedTouches[0].pageY-startY);
-				if( dDis > 0 || !isDownLa ) {
-					return false;
-				}
-				lastY = e.changedTouches[0].pageY;
-
-					if(lastY - startY > 0 && direction=='up'){
-							isTouchStart = true;
-			                // 下滑 
-							var currentH = - (startY - e.changedTouches[0].pageY)/2;
-							console.log(currentH);
-							if( currentH >= 50 ) {
-								$(".tip-refresh").addClass("isRefresh");
-							}	
-							if( currentH >= 150 ) {
-								currentH = 150;
-							}
-							if( currentH < 0 ){
-								currentH = 0;
-							}
-							targetDiv.css({"transform": "translateY(" + currentH + "px)"});
-							e.preventDefault();
-			        } else if(lastY - startY < 0  && direction=='down'){
-//			        		isTouchStart = true;
-//			                // 上滑
-//			                var currentY = -(startY-e.changedTouches[0].pageY)/2
-//			                if (currentY<-60){
-//			                    currentY = -60
-//			                }
-//			                targetDiv.css({"transform": "translateY(" + currentY + "px)"});
-//							e.preventDefault();
-			        }else if( lastY - startY < 0 && direction=='up' ){
-			        		isTouchStart = false;
-			        		targetDiv.css({"transform": "translateY(" + 0 + "px)"});
-			        }else{
-			        	isTouchStart = false;
-			        }
-
-			}
-			
-			function touchEnd(e) {
+			var topRefresh = (function(){
 				
-				if( isTouchStart && isDownLa ) {
-					isDownLa = false;
-					var distanceY = e.changedTouches[0].pageY - startY;
-					var time = distanceY;
-					if( time < 150 ) {
-						time = 150;
-					}else if( time > 250 ) {
-						time = 250;
+				var cacheData = []; //缓存数据
+				var lastRequestTime = 0; //最后一次请求世间
+				
+				var targetRefresh = $(".top-refresh"); //要触发下拉的元素
+				var pullDownOff = true; //在数据loading中是否可以再次下拉
+				var scrollDiv = null; //父级可滚动的div
+				var direction = null; //手指移动的方向
+				var bottomTop = targetRefresh.height() - $(window).height(); //元素超过屏幕的高度,或者父级可以滚动的最大距离
+				var startX = 0, startY = 0, lastX = 0, lastY = 0;
+				var isTouchStart = false;
+				var dropMaxDis = 200;
+				var currentDis = 0; //当前距离顶部的距离
+				var currentH = 0; //手指移动的距离
+				var isDebug = false; //是否开启模拟数据
+				var callBack = function(){};
+				var statusView = $("#js-statusView"); //提示状态管理
+				var refreshMsg = $(".top-refresh-msg");
+				//测试用的数据
+				var str = "<li>测试数据测试数据111</li><li>测试数据测试数据111</li><li>测试数据测试数据111</li>";
+				var list = $("#list");
+				
+				var postUrl = '';
+				var postData = {};
+				
+				//{callback:'',isAnolog:"",scrollDiv:'',postUrl:"",postData:""}
+				var initFun = function(config){
+					scrollDiv = config.scrollDiv ? $(config.scrollDiv) : targetRefresh;
+					isDebug = config.isDebug;
+					postUrl = config.postUrl;
+					postData = config.postData;
+					if( typeof config.callback === "function" ){
+						callBack = config.callback;
 					}
-					
-					if( distanceY/2 < 50 ){
-						to(targetDiv, "translateY", 0, time, iosEase, onChange, function(){
-							isDownLa = true;
-						});
-						return ;
+					$("body")[0].addEventListener("touchmove", touchMove, true);
+					$("body")[0].addEventListener("touchstart", touchStart, false);
+					$("body")[0].addEventListener("touchend", touchEnd, false);
+				}
+				
+				function touchStart(e) {  
+					if( scrollDiv.scrollTop() <= 0 ){
+						direction = "up";
+					}else if( scrollDiv.scrollTop() >= bottomTop - 10){
+						direction = "down";
+					}else{
+						direction = null;
 					}
-
-					to(targetDiv, "translateY", 50, time, iosEase, onChange, function(){
-						isScale = false;
-						refresh.show();
-						//重置状态
-						$(".tip-refresh").removeClass("isRefresh").hide();
-						
-						setTimeout(function(){
-							//请求数据
-							to(targetDiv, "translateY", 0, time, iosEase, onChange, function(){
-								isScale = false;
-								isTouchStart = false;
-								refresh.hide();
-								//重置状态
-								$(".tip-refresh").show();
-								
-								isDownLa = true;
-								list.prepend(str);
-								
-								//请求数据
-								refreshMsg.css({"display": "block", "opacity": 0});
-								setTimeout(function(){
-									refreshMsg.css({"opacity": 1});
-								}, 0);
-								
-								//成功后关闭
-								setTimeout(function(){
-									refreshMsg.css({"transition": "opacity .5s"});
-									refreshMsg.css({"opacity": 0});
-								}, 1500);
-							});
-						}, 2000);
-					});
+					//记录开始的位置
+					startX = e.changedTouches[0].pageX;
+					startY = e.changedTouches[0].pageY;
 				}
-			}
-			
-			function onChange(value) {
-				if( direction == "up" ) {
-					
-				}
-			}
-			
-			//运动函数
-			function iosEase(x) {
-				return Math.sqrt(1 - Math.pow(x - 1, 2));
-			}
-			var tickID = 0;
-			function to(el, property, value, time, ease, onChange, onEnd) {
-				var current = /\.*translateY\((.*)px\)/i.exec(el.css("transform"))[1];   //回弹的时候最大值
-				var dv = value - current;  //需要回弹的距离
-				var beginTime = new Date();  //开始时间
-				var toTick = function(){
-					var dt = new Date() - beginTime;  //单次帧的时间
-					if( dt >= time ){
-						el.css({"transform": "translateY(" + value + "px)"})
-						console.log("回原了");
-						onEnd && onEnd(value);
+				
+				function touchMove(e) {
+					lastY = e.changedTouches[0].pageY;
+					lastX = e.changedTouches[0].pageX;
+					//排除左右横滚
+					var dDis = Math.abs(lastX - startX) - Math.abs(lastY - startY);
+					if(dDis > 0 || !pullDownOff) { //当在数据加载过程中不能再滑动
+						return false;
+					}
+					if(lastY - startY > 0 && direction == 'up') {// 下滑 
+						isTouchStart = true;
+						currentH = -(startY - lastY) / 2;
+						//在这里改变显示状态
+						if(currentH >= 50) {
+							updateStatusView(2);
+						}
+						if(currentH >= dropMaxDis) {
+							currentH = dropMaxDis;
+						}
+						transform(currentH);
+						e.preventDefault();
+					} else if(lastY - startY < 0 && direction == 'down') {// 上滑
 						return;
+						isTouchStart = true;
+						var currentY = -(startY-e.changedTouches[0].pageY)/2
+						if (currentY<-60){
+							currentY = -60
+						}
+						transform(currentY);
+						e.preventDefault();
+					}else if(lastY - startY < 0 && direction == 'up') { //一种特殊的处理
+						isTouchStart = false;
+						transform(0);
+					}else{
+						isTouchStart = false;
 					}
-					var juli = dv * ease(dt / time) + parseInt(current) ;
-					console.log(juli);
-					el.css({"transform": "translateY(" + juli  + "px)"});
-					tickID = requestAnimationFrame( toTick );
-//					onChange && onChange( el[property] );
 				}
-				toTick();
-			}
+				
+				function touchEnd(e) {
+				
+					if( isTouchStart && pullDownOff) {
+						pullDownOff = false;
+						var time = 200;
+						
+						if( direction == "up" ){
+							if( currentH < 50 ){
+								to(0, time, iosEase, onChange, function(){
+									pullDownOff = true;
+								});
+								return ;
+							}
+							to(50, time, iosEase, onChange, function(){
+								//重置状态
+								updateStatusView(3);
+								if(isDebug) {
+									setTimeout(function(){
+										//请求数据
+										to(0, time, iosEase, onChange, function(){	
+											isTouchStart = false;
+											pullDownOff = true;
+											list.prepend(str);
+											responseMsg("暂时没有新的订单");
+											updateStatusView(1);
+										});
+									}, 2000);
+								}else{
+									//做异步请求处理
+									$.post(postUrl, postData, function(result){
+										var msg = "";
+										if(result.data){
+											callBack(result.data);  //开放给外面用户自己拼接数据
+											msg = "你有"+result.data.length+"订单";
+										}else{
+											//失败
+											msg = "暂时没有新的订单";
+										}
+										to(0, time, iosEase, onChange, function(){
+											isTouchStart = false;
+											pullDownOff = true;
+											responseMsg(msg);
+										});
+									}, "json");
+								}
+							});
+						}else{
+							to(0, time, iosEase, onChange, function(){
+								isTouchStart = false;
+								pullDownOff = true;
+							});
+							
+						}
+					}
+				}
+				
+				//更具status传递的值 显示不同的状态结果
+				function updateStatusView(status) {
+					statusView.removeClass("isRefresh");
+					switch(status){
+						case 1: //初始的状态
+							statusView.html($('<span class="icon icon-refresh-arrow-down"></span><span class="txt">下拉可刷新</span>'));
+							break;
+						case 2: //箭头方向改变,文字提示变为松手刷新
+							statusView.addClass("isRefresh");
+							statusView.find(".txt").text("松手可刷新");
+							break;
+						case 3: //图片改变为loading,文字提示为正在刷新
+							statusView.html('<span class="icon icon-refresh-loading"></span><span>正在刷新...</span>');
+							break;
+					}
+				}
+				
+				function responseMsg(str) {
+					//提示信息显示
+					refreshMsg.text(str);
+					refreshMsg.css({"display": "block", "opacity": 0});
+					setTimeout(function(){
+						refreshMsg.css({"opacity": 1});
+					}, 0);
+					//成功后关闭
+					setTimeout(function(){
+						refreshMsg.css({"transition": "opacity .5s"});
+						refreshMsg.css({"opacity": 0});
+					}, 1500);
+				}
+				
+				function transform(num) {
+					targetRefresh.css({"transform": "translateY(" + num + "px)"});
+				}
+				
+				//运动函数
+				function iosEase(x) {
+					return Math.sqrt(1 - Math.pow(x - 1, 2));
+				}
+				
+				function to(value, time, ease, onChange, onEnd) {
+					currentH = parseInt(/\.*translateY\((.*)px\)/i.exec(targetRefresh.css("transform"))[1]);
+					var dv = value - currentH;  //需要回弹的距离  要回到的目标距离-当前滑动的距离
+					var beginTime = new Date();  //开始时间
+					var toTick = function(){
+						var dt = new Date() - beginTime;  //距离开始的间隔时间
+						if( dt >= time ){ //动画终止的条件
+							transform(value);
+							onEnd && onEnd(value);
+							return;
+						}
+						var dis = dv * ease(dt / time) + currentH ;
+						transform(dis);
+						tickID = requestAnimationFrame( toTick );
+						onChange && onChange( dis );
+					}
+					toTick();
+				}
+				function onChange(value) {
+				}
+				return initFun;
+			})();
 			
-			
+			topRefresh({isDebug: true,scrollDiv: ".main",callback: function(data){
+			}});
+
+
+			//函数节流  函数在一定的事件范围内执行
 			function debounce(fn, delay){
-					var timer = null;
-					return function(){
-						var content = this, args = arguments;
-						clearTimeout(timer);
-						timer = setTimeout(function(){
-							fn.apply(content, args);
-						}, delay);
+				var timer = null;
+				return function(){
+					var content = this, args = arguments;
+					clearTimeout(timer);
+					timer = setTimeout(function(){
+						fn.apply(content, args);
+					}, delay);
+				}
+			}
+			
+			/**	  
+			 * @param {Object} config
+			 * {
+			 * 	ele: ""   要监听滚动的div   
+			 * 	url: ""   请求的url连接地址
+			 *  callbackBottom: function
+			 * }
+			 * 这里需要验证,是不是发送了很多的请求
+			 */
+			function divScrollLoad(config) {
+				var count = 1;
+				var isScroll = true;
+				var id = config.ele ? config.ele : "";
+				var scrollDiv = document.getElementById(id);
+				scrollDiv.onscroll = debounce(function(){
+					var wholeHeight = scrollDiv.scrollHeight; //滚动区域高度
+					var divScrollTop = scrollDiv.scrollTop; //卷上去的那部分高度
+					var divHeight = scrollDiv.clientHeight; //div的可视区域的高度
+					if(isScroll && divScrollTop + divHeight + 100 >= wholeHeight) {
+						++count;
+						getData();
 					}
+				}, 100);
+				function getData() {
+					setTimeout(function(){
+						console.log(count);
+						config.callbackBottom();
+					}, 800);
+					return;
+					$.post(config.url+"?p=" +count, {
+						"p": count,
+						"action": "page"
+					}, function(data) {
+						isScroll = data.isHave;
+						if(!isScroll) {
+							$("#js-noMore").show();
+							scrollDiv.onscroll = null;
+						}else{
+							config.callbackBottom(data.list);
+						}
+					}, "json");
+				}
 			}
 			
-			function getData() {
-				
-				if( count > 10 ){
-					loading.text("已经到底了")
-					$(".main")[0].onscroll = null;
-					return ;
-				}
-				setTimeout(function(){
-					list.append(str);
-				}, 1000);
-				
-				
-				return;
-//				$.post(config.url+"?p=" +count, {
-//					"p": count,
-//					"action": "page"
-//				}, function(data) {
-//					isScroll = data.isHave;
-//					if(!isScroll) {
-//						$("#js-noMore").show();
-//						scrollDiv.onscroll = null;
-//					}else{
-//						config.callbackBottom(data.list);
-//					}
-//				}, "json");
-			}
-			
-			var count = 0;
-			$(".main")[0].onscroll = debounce(function(){
-				var wholeHeight = this.scrollHeight; //滚动区域高度
-				var divScrollTop = $(this).scrollTop(); //卷上去的那部分高度
-				var divHeight = $(this).height(); //div的可视区域的高度
-				
-				console.log("滚动区域高度="+wholeHeight+"|"+"滚动的高度="+divScrollTop+"|"+"div的高度="+divHeight);
-				if(divScrollTop + divHeight + 100 >= wholeHeight) {
-					loading.css({"visibility": "visible"});
-					console.log("到底了");
-					++count;
-					getData();
-					console.log(count);
-				}
-			}, 100);
+			divScrollLoad({"ele": "main", url:"", callbackBottom: function(){
+				var str = "<li>测试数据测试数据111</li><li>测试数据测试数据111</li><li>测试数据测试数据111</li><li>测试数据测试数据111</li><li>测试数据测试数据111</li><li>测试数据测试数据111</li>";
+				var list = $("#list");
+				list.append(str);
+			}})
 		</script>
 	</body>
 </html>

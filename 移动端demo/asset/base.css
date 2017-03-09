@@ -19,14 +19,50 @@ input[type="text"], textarea { -webkit-appearance: none; -moz-appearance: none; 
 	display: inline-block;
 	width: 1em;
 	height: 1em;
-	background: yellow;
-	vertical-align: middle;
+	vertical-align: -2px;
 	margin-right: 0.3em;
+	overflow: hidden;
 }
-.icon-refresh-arrow {
-	transition: all .6s;
-	background-image: url();
+.icon-refresh-arrow-down {
+	transition: all .3s;
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2026%2040'%3E%3Cpolygon%20points%3D'9%2C22%209%2C0%2017%2C0%2017%2C22%2026%2C22%2013.5%2C40%200%2C22'%20fill%3D'%238c8c8c'%2F%3E%3C%2Fsvg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
 }
+.icon-refresh-loading{
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%20120%20120'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20xmlns%3Axlink%3D'http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink'%3E%3Cdefs%3E%3Cline%20id%3D'l'%20x1%3D'60'%20x2%3D'60'%20y1%3D'7'%20y2%3D'27'%20stroke%3D'%236c6c6c'%20stroke-width%3D'11'%20stroke-linecap%3D'round'%2F%3E%3C%2Fdefs%3E%3Cg%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(30%2060%2C60)'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-transform-origin: 50%;
+  	transform-origin: 50%;
+  	-webkit-animation: preloader-spin 1s steps(12, end) infinite;
+  	animation: preloader-spin 1s steps(12, end) infinite;
+}
+.icon-refresh-loading:after {
+	display: inline-block;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%20120%20120'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20xmlns%3Axlink%3D'http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink'%3E%3Cdefs%3E%3Cline%20id%3D'l'%20x1%3D'60'%20x2%3D'60'%20y1%3D'7'%20y2%3D'27'%20stroke%3D'%23fff'%20stroke-width%3D'11'%20stroke-linecap%3D'round'%2F%3E%3C%2Fdefs%3E%3Cg%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(30%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(60%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(90%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(120%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(150%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.37'%20transform%3D'rotate(180%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.46'%20transform%3D'rotate(210%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.56'%20transform%3D'rotate(240%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.66'%20transform%3D'rotate(270%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.75'%20transform%3D'rotate(300%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.85'%20transform%3D'rotate(330%2060%2C60)'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+	background-position: center;
+	background-size: 100%;
+}
+
+
+
+
+@-webkit-keyframes preloader-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes preloader-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
 
 
 body {
@@ -69,7 +105,7 @@ header {
 }
 
 
-.refresh-layer {
+.top-refresh-layer {
 	width: 100%;
 	height: 100px;
 	height: 100%;
@@ -78,19 +114,20 @@ header {
 	left: 0;
 	text-align: center;
 	background: #e4e2e2;
+	background: #EFEFF4;
 	color: #000;
 }
-.refresh-layer .refresh-txt {
+.top-refresh-layer .refresh-txt {
 	width: 100%;
 	height: 3em;
 	line-height: 3em;
 	position: absolute;
 	bottom: 0;
 }
-.refresh-layer .refresh {
+.top-refresh-layer .refresh {
 	display: none;
 }
-.refresh-msg {
+.top-refresh-msg {
 	display: none;
 	position: absolute;
 	top: 50px;
@@ -104,7 +141,7 @@ header {
 	background-color: rgba(0,0,0,0.6);
 	transition: opacity 1s;
 }
-.isRefresh .icon-refresh-arrow {
+.isRefresh .icon-refresh-arrow-down {
 	transform: rotateZ(-180deg);
 }
 
@@ -122,7 +159,7 @@ header {
 
 
 .loading {
-	visibility: hidden;
+	/*visibility: hidden;*/
 	height: 60px; 
 	line-height: 60px;
 	text-align: center;
