@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="format-detection" content="telephone=no"> <!-- 是否自动识别手机号码  -->
+		<meta content="email=no" name="format-detection">
+		<meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" href="./asset/base.css" />
+		<script type="text/javascript" src="asset/zepto.min.js" ></script>
+	</head>
+	<body>
+		<div class="page" style="background: red;">
+			<span id="outMask">点击我选择飞机</span>
+			<span id="showSelect"></span>
+			<div id="testClick" style="margin-top: 100px; width: 60px; height: 60px; background: green;">
+			</div>
+		</div>
+		
+		
+		<script>
+//			<!--下面全部通过js来动态生成-->
+//			<!--全局遮罩层-->
+//			<div class="mask-layer"></div>
+//			<!--底部固定滑出层-->
+//			<div class="mask-content">
+//			</div>
+			var maskLayer = (function(){
+				//列表数据
+				var listData = [];
+				var body = $("body");
+				var maskLayer = $('<div class="mask-layer"></div>');
+				var maskContent = $('<div class="mask-content"></div>');
+				var listClickBack = function(){};
+				body.on("click", ".mask-layer", function(e){
+					closeMask();
+				});
+				maskContent.on("click", "li",function(){
+					listClickBack(this, closeMask);
+					$(this).addClass("active");
+//					setTimeout(function(){
+//						closeMask();
+//					}, 200);
+				});
+				//关闭mask
+				function closeMask() {
+					maskLayer.removeClass("show");
+					maskContent.removeClass("show");
+					setTimeout(function(){
+						maskLayer.remove();
+						maskContent.remove();
+					}, 500);
+				}
+				function createHtml(){
+					var html = "<ul>";
+					for(var i=0; i < listData.length; i++){
+						html += "<li>" + listData[i] + "</li>";	
+					}
+					html += "</ul>";
+					maskContent.html("").append(html);
+				}
+				function initView(){
+					createHtml();
+					body.append(maskLayer).append(maskContent);
+					setTimeout(function(){
+						maskLayer.addClass("show");
+						maskContent.addClass("show");
+					}, 18);
+				}
+				return function(config){
+					listData = config.listData && config.listData.length > 0 ? config.listData : [];
+					listClickBack = typeof config.listClickBack === "function" ? config.listClickBack : function(){};
+					initView();
+					//这里 可以返回公开的方法出去
+					return {};
+				}
+			})();
+			
+			var data = [100, 200, 300, 400, 500, 600];
+			$("#outMask").on("click", function(){
+				maskLayer({listData: data, listClickBack: function(th, closeMask){
+					console.log($(th).html());
+					$("#showSelect").html($(th).html());
+					setTimeout(function(){
+						closeMask();
+					}, 200);
+				}});
+			});
+			
+			$("#testClick").on("click", function(){
+				console.log("我点击了");
+			})
+		</script>
+	</body>
+</html>
