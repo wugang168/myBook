@@ -144,7 +144,9 @@ https://ykloveyxk.github.io/2017/02/25/axios%E5%85%A8%E6%94%BB%E7%95%A5/#more
 
 HTML5移动适配方案
 http://www.tuicool.com/articles/nmm6reE
+ppt模式介绍
 http://js8.in/2015/12/12/手机百度移动适配切图解决方案介绍/
+http://js8.in/slide/flexible.htm#2
 
 
 提
@@ -163,3 +165,6 @@ https://isux.tencent.com/h5-drop-down-effect-slide.html
 
 文档
 http://www.css88.com/nav/
+
+手势检测原理
+http://qianduan.guru/2016/08/13/gesture_detection_in_html5/?utm_source=gold_browser_extension
