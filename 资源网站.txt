@@ -168,3 +168,10 @@ http://www.css88.com/nav/
 
 手势检测原理
 http://qianduan.guru/2016/08/13/gesture_detection_in_html5/?utm_source=gold_browser_extension
+
+
+http://ued.party/#如何以正确的姿势练习深化前端知识
+
+
+javascript系列
+http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html
