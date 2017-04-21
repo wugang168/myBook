@@ -179,3 +179,32 @@ http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html
 
 
 http://www.jianshu.com/p/cd3fee40ef59
+
+
+
+vue的UI收藏
+https://shimo.im/doc/LkpdnWxM1j40BDJj/
+
+vue源码相关的文章
+https://segmentfault.com/a/1190000008782928 【diff算法】
+
+移动
+http://blog.csdn.net/BaiHuaXiu123/article/details/68925120
+
+
+在nodejs中引入模块解读
+https://juejin.im/post/58f01a1d61ff4b0058e1875e?utm_source=gold_browser_extension
+
+https://github.com/FrankFang/best-chinese-front-end-blogs
+
+
+html5+ 文档
+http://html5plus.org/doc/zh_cn/key.html
+
+
+正确认识line-height vertical-align
+http://zcfy.baomitu.com/article/deep-dive-css-font-metrics-line-height-and-vertical-align-vincent-de-oliveira-2616.html
+
+
+在 Node.js 中引入模块：你所需要知道的一切都在这里
+http://huziketang.com/blog/posts/detail?postId=58eaf471a58c240ae35bb8e3
