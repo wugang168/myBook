@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="format-detection" content="telephone=no"> <!-- 是否自动识别手机号码  -->
+		<meta content="email=no" name="format-detection">
+		<meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" href="./asset/base.css" />
+	</head>
+	<body>
+		<div class="page">
+			<div id="map" class="map"></div>
+			<div class="map-layer">
+				我这里是内容加载的
+			</div>
+		</div>
+		<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=QH2BZ-6CNC4-GPNU3-XM7ZO-Z53QE-OJBCZ&libraries=drawing,geometry,autocomplete,convertor"></script>
+		<script type="text/javascript">
+			//坐标点移动的方案
+			//每秒钟监听飞机返回的经纬度,把地图的中心点改变,更新飞机marker图标位置
+			//使用jsonp的方式来初始页面,打开页面去请求一个远程地址,通过远程来调用
+		</script>
+		<script>
+			
+			console.log(location);
+			console.log(window.host);
+			//marker的起点和终点位置
+			var pos = {
+				start: new qq.maps.LatLng(23.131204,113.409805),
+				end: new qq.maps.LatLng(23.148726,113.416157),
+				plane: new qq.maps.LatLng(23.131204,113.409805)
+			}
+			//创建地图
+			var map = new qq.maps.Map(document.getElementById("map"), {
+                zoom: 16,
+                mapTypeControl: false,
+            });
+           	//根据矩形调整视窗两点始终在中
+    		var latlngBounds = new qq.maps.LatLngBounds(pos.start, pos.end ); //矩形的地理坐标范围
+           	map.fitBounds(latlngBounds);
+            //画直线
+            var polyline = new qq.maps.Polyline({
+                //折线是否可点击
+                clickable: false,
+                //鼠标在折线上时的样式
+                cursor: 'crosshair',
+                //折线是否可编辑
+                editable: false,
+                map: map,
+                //折线的路径
+                path: [pos.start,pos.end],
+                //折线的颜色
+                strokeColor: '#000000',
+                //可以设置折线的透明度
+                strokeColor: new qq.maps.Color(0, 0, 0, 0.5),
+                //折线的样式
+                strokeDashStyle: 'solid',
+                //折线的宽度
+                strokeWeight: 2,
+                //折线是否可见
+                visible: true,
+                //折线的zIndex
+                zIndex: 1000,
+            });
+            
+            //创建地图标注图层
+            function createMarker(iconSrc, pos, map) {
+            	var iocn = new qq.maps.MarkerImage(iconSrc, 
+					            new qq.maps.Size(24, 24), 
+					            new qq.maps.Point(0, 0), 
+					            new qq.maps.Point(12, 12),
+					            new qq.maps.Size(24,24)
+				        );
+            	return  new qq.maps.Marker({
+		            		icon: iocn,
+			            	position: pos,
+			            	map: map
+			        	});
+            }
+            //创建marker开始的点坐标
+            var startMarker = createMarker("./asset/startFlight.png", pos.start, map);
+	        //结束的点坐标
+	        var endMarker = createMarker("./asset/endFlight.png", pos.end, map);
+	        //创建飞机的marker
+	        var planeMarker = createMarker("./asset/startFlight.png", pos.plane, map);
+	        var planeRotation = qq.maps.geometry.spherical.computeHeading(pos.start, pos.end);
+	        //给飞机设置转角角度
+	        planeMarker.setRotation(planeRotation);
+			
+			//模拟飞机在地图中飞的效果
+			var timeTotal = 300; //花费的总的时间
+			var time = 0;
+  			var timer = setInterval(function(){
+  				if( time > timeTotal ){
+  					clearInterval(timer);
+  					return;
+  				}
+  				var planePos = qq.maps.geometry.spherical.interpolate(pos.start,pos.end, time/timeTotal);
+  				planeMarker.setPosition(planePos);
+  				time ++;
+  			}, 1000);
+	        
+	        //更新地图的中心点
+	        //模拟的中心点位置
+//			var centerPath = [
+//				new qq.maps.LatLng(23.165614,113.117981),
+//				new qq.maps.LatLng(23.150462,113.127594),
+//				new qq.maps.LatLng(23.072151,113.227844),
+//				new qq.maps.LatLng(23.154250,113.435211),
+//			];
+//	        var count = 0;
+//	        setInterval(function(){
+//	        	map.setCenter(centerPath[count++ > 3 ? 3 : count]);
+//	        	console.log(count);
+//	        }, 1000);
+		</script>
+	</body>
+</html>

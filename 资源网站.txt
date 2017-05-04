@@ -144,7 +144,9 @@ https://ykloveyxk.github.io/2017/02/25/axios%E5%85%A8%E6%94%BB%E7%95%A5/#more
 
 HTML5移动适配方案
 http://www.tuicool.com/articles/nmm6reE
+ppt模式介绍
 http://js8.in/2015/12/12/手机百度移动适配切图解决方案介绍/
+http://js8.in/slide/flexible.htm#2
 
 
 提
@@ -160,3 +162,49 @@ https://zhuanlan.zhihu.com/p/25554352
 
 H5下拉刷新
 https://isux.tencent.com/h5-drop-down-effect-slide.html
+
+文档
+http://www.css88.com/nav/
+
+手势检测原理
+http://qianduan.guru/2016/08/13/gesture_detection_in_html5/?utm_source=gold_browser_extension
+
+
+http://ued.party/#如何以正确的姿势练习深化前端知识
+
+
+javascript系列
+http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html
+
+
+
+http://www.jianshu.com/p/cd3fee40ef59
+
+
+
+vue的UI收藏
+https://shimo.im/doc/LkpdnWxM1j40BDJj/
+
+vue源码相关的文章
+https://segmentfault.com/a/1190000008782928 【diff算法】
+
+移动
+http://blog.csdn.net/BaiHuaXiu123/article/details/68925120
+
+
+在nodejs中引入模块解读
+https://juejin.im/post/58f01a1d61ff4b0058e1875e?utm_source=gold_browser_extension
+
+https://github.com/FrankFang/best-chinese-front-end-blogs
+
+
+html5+ 文档
+http://html5plus.org/doc/zh_cn/key.html
+
+
+正确认识line-height vertical-align
+http://zcfy.baomitu.com/article/deep-dive-css-font-metrics-line-height-and-vertical-align-vincent-de-oliveira-2616.html
+
+
+在 Node.js 中引入模块：你所需要知道的一切都在这里
+http://huziketang.com/blog/posts/detail?postId=58eaf471a58c240ae35bb8e3

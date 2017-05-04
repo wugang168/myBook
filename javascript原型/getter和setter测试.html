@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var obj = {
+				a: 1,
+				get b() {
+					
+					return this.a;
+				},
+				set b(value) {
+					console.log("设置")
+					this.b =  value;
+				}
+			}
+			console.log(obj);
+		</script>
+	</body>
+</html>
