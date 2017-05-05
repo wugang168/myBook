@@ -217,3 +217,14 @@ http://animista.net/
 
 数据访问接口
 https://easy-mock.com
+
+Vuex框架原理与源码分析
+https://mp.weixin.qq.com/s/8Q_r3cyx1ly28GnkY_DHpQ
+
+
+理解 Gulp 和 Webpack
+http://www.barretlee.com/blog/2017/04/27/gulp-and-webpack/
+
+
+Vue常用经典开源项目汇总参考-海量
+http://www.jianshu.com/p/58e72750cc62
