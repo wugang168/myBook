@@ -228,3 +228,10 @@ http://www.barretlee.com/blog/2017/04/27/gulp-and-webpack/
 
 Vue常用经典开源项目汇总参考-海量
 http://www.jianshu.com/p/58e72750cc62
+
+h5页面在微信中的坑
+https://aotu.io/notes/2017/01/11/mobile-video/
+
+
+前端的一些小总结
+http://blog.sina.com.cn/s/blog_1670150470102wpw9.html
