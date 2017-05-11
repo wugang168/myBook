@@ -235,3 +235,11 @@ https://aotu.io/notes/2017/01/11/mobile-video/
 
 前端的一些小总结
 http://blog.sina.com.cn/s/blog_1670150470102wpw9.html
+
+
+组件
+ant.design/
+
+
+vue指令例子和js的模块化路程[博客]
+http://www.cnblogs.com/kidney/p/6673189.html
