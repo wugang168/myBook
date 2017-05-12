@@ -1,0 +1,4 @@
+1.easy mock 和 Swagger  模拟数据接口
+2.vue2 中的指令系统
+3.AlloyTouch 手势库
+4.js中的数组方法
