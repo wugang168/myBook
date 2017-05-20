@@ -2,3 +2,4 @@
 2.vue2 中的指令系统
 3.AlloyTouch 手势库
 4.js中的数组方法
+5.确定js， css， html 的编码规范

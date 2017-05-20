@@ -98,4 +98,24 @@ data 属性的定义中不能使用this来引用,使用this会让属性为undefi
 
 prop 允许外部环境传递数据给组件；
 事件 	   允许组件触发外部环境的 action；
+
 slot 允许外部环境插入内容到组件的视图结构内。
+
+
+
+
+
+
+
+
+js拷贝一个对象,先把对象序列化,然后在反序列化回来就是一个新的对象
+var obj = { 
+	a: {
+		c: "1",
+		d: "2"
+	},
+	b: "b"
+}
+
+var copyObj = JSON.parse(JSON.stringify(obj));
+
