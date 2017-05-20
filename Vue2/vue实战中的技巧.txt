@@ -1,0 +1,21 @@
+1.props  传递过来的数据可以作为data属性中值的初始值
+例如：
+	props: ['parentVal'],    这里的数据初始要比data的块,是提前了吗?
+	data: function(){
+		return {
+			test: this.parentVal
+		}
+	},
+	computed: {
+		childVal(){
+			var c = this.parentVal;   //这样就是操作prop中的值
+			return ++c;
+		}
+	}
+	
+	
+2.按住shift键右键鼠标可以显示在此处打开命令窗口
+
+
+
+	

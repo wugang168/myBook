@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>pop方法</title>
+	</head>
+	<body>
+		<!-- 
+			数组方法concat()
+			链接一个或者多个数组
+			返回一个新的数组
+			
+			数组方法join(符号)
+			以某种符号链接数组中的每个元素
+			
+			数组方法pop 
+			弹出数组的最后一个元素,返回弹出的元素,原数组改变,长度减一
+			
+			数组方法shift
+			弹出数组的第一个元素,返回弹出的元素
+			
+			数组方法push
+			往数组的末尾添加一个数据,返回改变后的数组的长度,原数组改变,长度加一
+			
+			数组方法unshift
+			往数组的首部添加一个数据,返回数据的长度
+			
+			数组indexOf(要查找的数据);[这里是怎样的一种匹配算法]
+			查询制定数据在数组中的位置  位置重0开始计数
+			如果数组里的每个元素是一个对象的话,就会查询失败返回-1
+			
+			lastIndexOf();
+			最后查找的元素的位置
+			
+			
+			数组方法sort 由小到大
+			sort()
+			sort(function(a, b){})  
+			对数组元素安字母顺序排序
+			
+			数组方法revers()
+			颠倒数组的数据顺序
+			
+			数组方法slice(start, end);
+			返回数组中的一部分
+			返回的数组包含start,不包含end
+			如果是负值表示是从后往前数
+			
+			数组方法 splice
+			插入,删除和替换数组方法
+			
+			reduce()	        左边开始
+			reduceRight()  从右边开始
+			重数据元素中计算出一个值,利用它可以求数组中数据的和
+			
+			
+			some(function)
+			some(function, this)
+			测试是否有元素满足断言函数
+			如果有返回true, 直接返回true
+			全部false， 返回false
+			
+			every(function)
+			every(function, this)
+			测试是否有元素满足断言函数
+			如果有返回false, 直接返回false
+			全部true， 返回true
+			
+			filter
+			测试是否有元素满足断言函数
+			返回 断言函数返回true的元素组成的新数组
+			
+			map
+			从数组的元素中计算出新的数组元素
+			[对数组中的元素同时加上一个基础数据]
+			
+			forEach(function(arr[i], i, arr))
+			未每一个数组元素调用一个函数
+		-->
+		<script>
+			var arr = ["我是数据一", "我是数据二", "我是数据三", "我是数据四"];
+			var pop = arr.pop();
+			console.log(pop);
+			console.log(arr);
+			
+			var push = arr.push("我是数据五");
+			console.log(arr);
+			console.log(push);
+			console.log(arr.length);
+			
+			
+			var　shift = arr.shift();
+			console.log(shift);
+			
+			console.log(arr.indexOf("我是数据二"));
+			
+			var arr_two = [
+				"我",
+				"是",
+				"就",
+				333,
+				44,
+				11,
+				22,
+				"11",
+				"a",
+				"A",
+				"B"
+			];
+			console.log(arr_two.indexOf(2));
+			
+			console.log(arr_two.sort());
+			
+			var arr_three = [1,2,3,4,5, -1];
+			var count = arr_three.reduce(function(a, b){
+				if(b > 0){
+					return a + b;
+				}else{
+					return a;
+				}
+			}, 0);
+			console.log(count);
+			
+			console.log(arr_three.slice(1));
+			console.log(arr_three.slice(1, 4));
+		</script>
+		
+	</body>
+</html>
