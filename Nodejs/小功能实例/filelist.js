@@ -1,19 +1,25 @@
 //静态资源本地开发到本地测试环境的自动更新
 var fs = require("fs");
 
+var lastModifyDate = "2017-05-31T03:16:24.051Z";
+
 //path模块，可以生产相对和绝对路径
 var path = require("path");
 
+// 当前文件的据对路径
+var buildFilePath =  path.resolve(__filename);
+console.log(buildFilePath);
+
 //测试环境的目标地址
-var remotePath = "D:/wamp/www/EhangMeals/Public/sellernew/";
-//var remotePath = "D:/wamp/www/testcopy/def/";
+// var remotePath = "D:/wamp/www/EhangMeals/Public/sellernew/";
+var remotePath = "D:/wamp/www/testcopy/def/";
 
 //开发环境等待处理目录
-var devPath = "D:/wamp/www/vueMeals/public/";
-//var devPath = "D:/wamp/www/testcopy/abc/"
+// var devPath = "D:/wamp/www/vueMeals/public/";
+var devPath = "D:/wamp/www/testcopy/abc/"
 
 //开发环境的vue编译js文件【这个是固定的】
-var devPathVueJs = "D:/vueMeals/dist/index.js";
+// var devPathVueJs = "D:/vueMeals/dist/index.js";
   
   
 //读取文件存储数组
@@ -30,7 +36,11 @@ travel(devPath, function(filePaht){
 	var suffix = filePaht.substring(filePaht.lastIndexOf('.'));
 	//排除不需要复制的文件后缀
 	if(excludeSuffix.indexOf(suffix) == -1){
-		fileArr.push(filePaht);
+		// 排除非本次修改的文件
+		var stat = fs.statSync(filePaht);
+		if(stat.mtime.toISOString() > lastModifyDate) {
+			fileArr.push(filePaht);
+		}
 	}
 });
 
@@ -52,11 +62,18 @@ fileArr.forEach(function(file){
 });
 
 
+//执行到这里的时候就把文件自己修改了
+//获取当前的时间
+var nowTime = new Date();
+var fileData = fs.readFileSync(buildFilePath,'utf-8');
+fileData = fileData.replace(/[0-9]+\S+Z/, nowTime.toISOString());
+fs.writeFileSync(buildFilePath, fileData, {encoding: 'utf8'});
+
+
 //目录遍历
 function travel(dir, callback) {
     fs.readdirSync(dir).forEach(function (file) {
         var pathname = path.join(dir, file);
-
         if (fs.statSync(pathname).isDirectory()) {
             travel(pathname, callback);
             fileDirArr.push(pathname);
@@ -67,9 +84,9 @@ function travel(dir, callback) {
 }
 
 
-//复制文件
+//复制文件   
 function copy(src, dst) {
-		console.log("正在拷贝文件:\r\nfrom:" + src + "\r\nto:" + dst);
+	console.log("正在拷贝文件:\r\nfrom:" + src + "\r\nto:" + dst);
   	fs.writeFileSync(dst, fs.readFileSync(src));
 }
 
