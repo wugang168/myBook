@@ -1,0 +1,19 @@
+1.npm 现在是跟随nodejs一起安装,只要安装了nodejs npm就自动安装了
+2.npm install <packagename>  安装之前会检查node_modules中是否安装了
+3.npm update <packagename>   更新安装包
+4.npm version | npm -v  查看npm的版本
+5.node -v 查看nodejs的版本
+6.npm init 是初始化一个项目的时候用的命令会在项目目录下面创建package.json文件
+7.npm install 使用开源项目的时候,它会获取package.json,安装相关的依赖
+
+package.json 字段介绍
+
+npm install gulp --save | npm install gulp -S
+装包信息将加入到package.json的dependencies字段中(生产阶段的依赖)
+
+npm install gulp --save-dev 或 npm install gulp -D
+装包信息将加入到package.json的devDependencies字段中(开发阶段的依赖)
+
+本地安装 全局安装
+npm install gulp [安装到当前项目的node_modules目录中]
+npm install gulp -g [安装到node的node_modules目录中]

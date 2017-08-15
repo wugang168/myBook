@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		console.info("这里是信息提示")
+		console.log("有错误发送");
+		console.error("有错误发送")
+		console.warn("警告提示")
+		var obj = {
+			"name": "测试",
+			"url": "11111111111"
+		}
+		function add() {
+			console.trace();
+			return 1;
+		}
+		function edit() {
+			add();
+		}
+		console.dir(obj);
+		console.log(obj);
+		edit();
+		
+		console.time();
+		var k = 0;
+		for(var i=0; i< 10000; i++){
+			k += i;
+		}
+		console.log(k);
+		console.timeEnd()
+	</script>
+</html>
