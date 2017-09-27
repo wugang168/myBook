@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>客户区可见范围限制拖拽</title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			#div1 {
+				width: 500px;
+				height: 500px;
+				background: orange;
+				position: fixed;
+				left: 100px;
+				top: 100px;
+				border-radius: 50%;
+			}
+			
+			#div2 {
+				width: 100px;
+				height: 100px;
+				background: black;
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				border-radius: 50%;
+				transform: translate(-50%, -50%);
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="div1">
+			<div id="div2"></div>
+		</div>
+
+		<script type="text/javascript">
+			
+			(function(){
+				
+			})
+			
+			
+			
+			
+			var oDiv1 = document.getElementById('div1');
+			var oDiv2 = document.getElementById('div2');
+			var parenPos = oDiv1.getBoundingClientRect();
+
+			//圆半径
+			var r = oDiv1.offsetHeight / 2;
+
+			//组建圆形点坐标
+			var centerPos = {
+				x: parenPos.top + r,
+				y: parenPos.left + r
+			}
+			//当前坐标系的方位
+			var orientation = 0;
+			//坐标系比例
+			var ratio = 1/r;
+			var requestPos = {
+				x: 0,
+				y: 0
+			}
+			oDiv2.style.left = centerPos.x + 'px';
+			oDiv2.style.top = centerPos.y + 'px';
+			
+			oDiv2.onmousedown = function(ev) {
+				var oEvent = ev || event;
+				document.onmousemove = function(ev) {
+					var oEvent = ev || event;
+					var currentPos = {
+						x: oEvent.clientX,
+						y: oEvent.clientY
+					};
+					currentPos = getRelativeXY(currentPos)
+					oDiv2.style.left = currentPos.x + 'px';
+					oDiv2.style.top = currentPos.y + 'px';
+				};
+				document.onmouseup = function() {
+					document.onmousemove = null; //如果不取消，鼠标弹起div依旧会随着鼠标移动
+					document.onmouseup = null;
+					oDiv2.style.left = centerPos.x + 'px';
+					oDiv2.style.top = centerPos.y + 'px';
+				};
+			};
+
+			function getRelativeXY(curentPos) {
+				var x = centerPos.x - curentPos.x;
+				var y = centerPos.y - curentPos.y;
+				var sinAngleX = null;
+				var sinAngleY = null;
+				var r1 = Math.sqrt(Math.pow(Math.abs(x), 2) + Math.pow(Math.abs(y), 2));
+				if(x < 0 && y < 0) {
+					orientation = 4
+				} else if(x > 0 && y < 0) {
+					orientation = 3
+				} else if(x < 0 && y > 0) {
+					orientation = 2
+				} else if(x > 0 && y > 0) {
+					orientation = 1
+				}
+//				x = Math.abs(x);
+//				y = Math.abs(y);
+				console.log("减去后的xy: " + x + "|" + y);
+				console.log("当前方位：" + orientation);
+				if(r1 > r) {
+					//这里要做限制处理
+					var x1 = Math.abs(x / r1 * r);
+					var y1 = Math.abs(Math.sqrt(Math.pow(r, 2) - Math.pow(x1, 2)));
+					//这里的值是绝对值
+					switch(orientation) {
+						case 1:
+							requestPos.x = -x1*ratio;
+							requestPos.y = +y1*ratio;
+							return {
+								x: centerPos.x - x1,
+								y: centerPos.y - y1
+							};
+						case 2:
+							requestPos.x = +x1*ratio;
+							requestPos.y = +y1*ratio;
+							return {
+								x: centerPos.x + x1,
+								y: centerPos.y - y1
+							};
+						case 3:
+							requestPos.x = -x1*ratio;
+							requestPos.y = -y1*ratio;
+							return {
+								x: centerPos.x - x1,
+								y: centerPos.y + y1
+							};
+						case 4:
+							requestPos.x = x1*ratio;
+							requestPos.y = -y1*ratio;
+							return {
+								x: centerPos.x + x1,
+								y: centerPos.y + y1
+							};
+					}
+				} else {
+					//这里的xy不是绝对值所以不一样
+					switch(orientation) {
+						case 1:
+							requestPos.x = x*ratio;
+							requestPos.y = -y*ratio;
+						case 2:
+							requestPos.x = -x*ratio;
+							requestPos.y = -y*ratio;
+						case 3:
+							requestPos.x = x*ratio;
+							requestPos.y = y*ratio;
+						case 4:
+							requestPos.x = -x*ratio;
+							requestPos.y = +y*ratio;
+					}
+					return curentPos;
+				}
+			}
+		</script>
+	</body>
+
+</html>

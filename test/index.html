@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<base target="baseIframe" href="http://192.168.184.5:60001/"/>
+		<title>调度平台接口列表</title>
+		<style>
+			*{padding:0;margin:0;box-sizing:border-box}a{color:#333}body,html{width:100%;height:100%;overflow:hidden}.wrap{width:100%;height:100%;padding-left:200px}.slider-left{float:left;display:inline-block;width:200px;height:100%;margin-left:-200px;border-right:1px solid #049FF1}.content-right{width:100%;height:100%;padding:10px}.iframe{width:100%;height:100%;border:0;outline:none}.slider-nav{}.slider-nav a{display:block;height:45px;line-height:45px;text-align:center;border-bottom:1px solid #d4d4d4;text-decoration:none}.slider-nav a.active{color:#049FF1}.nav-title{height:60px;line-height:60px;text-align:center;border-bottom:1px solid #049FF1}
+		</style>
+		<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="slider-left">
+				<div class="nav-title">接口列表  </div>
+				<nav class="slider-nav" id="js-nav">
+				</nav>
+			</div>
+			<div class="content-right">
+				<iframe class="iframe" name="baseIframe" id="test" src="" width="" height=""></iframe>
+			</div>
+		</div>	
+		<script>
+			var navData = [
+				{
+					name: "平台接口",
+					url: "http://192.168.184.5:50001/doc/platform.json"
+				},
+				{
+					name: "起降点接口",
+					url: "http://192.168.184.5:50001/doc/apron.json"
+				},
+				{
+					name: "飞机管理接口",
+					url: "http://192.168.184.5:50001/doc/drone.json"
+				},
+				{
+					name: "航线接口",
+					url: "http://192.168.184.5:50001/doc/airline.json"
+				},
+				{
+					name: "航线申请接口",
+					url: "http://192.168.184.5:50001/doc/dispatch.json"
+				},
+				{
+					name: "日志查询接口",
+					url: "http://192.168.184.5:60001/doc/flightlogquery.json"
+				},
+				{
+					name: "在线飞机接口",
+					url: "http://192.168.184.5:50001/doc/dronestatus.json"
+				},
+				{
+					name: "地址转换接口",
+					url: "http://192.168.184.5:60001/doc/gpsoffset.json"
+				},
+				{
+					name: "飞机微控接口",
+					url: "http://192.168.184.5:50001/doc/copteroperation.json"
+				},
+				{
+					name: "获取token接口",
+					url: "http://192.168.184.5:50001/doc/administrator.json"
+				},{
+					name: "枚举说明",
+					url: "http://192.168.184.5:50001/doc/enums.json"
+				},{
+					name: "飞机类型",
+					url: "http://192.168.184.5:50001/doc/droneCategory.json"
+				}
+			];
+			$(function(){
+				var nav  = $("#js-nav");
+				var aHtml = "";
+				for(var i=0; i<navData.length; i++){
+					aHtml += "<a href='" + navData[i].url + "'>" + navData[i].name + "</a>";
+				}
+				nav.html(aHtml);
+				nav.on("click", function(event){
+					if(event.target.tagName == "A"){
+						$(event.target).addClass("active").siblings("a").removeClass("active");
+					}
+				});
+			})
+			
+		</script>
+	</body>
+</html>

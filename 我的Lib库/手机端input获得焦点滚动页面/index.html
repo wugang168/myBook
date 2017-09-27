@@ -118,6 +118,7 @@
 				var startHeight = document.body.clientHeight || document.documentElement.clientHeight;
 				var endHeight = null;
 				var intervalHeight = config.intervalHeight;
+				var scrollEnd = config.scrollEnd ? config.scrollEnd : false;
 				
 				//监听页面元素获得focus事件处理
 				function listenFocus(event) {
@@ -136,9 +137,14 @@
 				
 				//监听页面窗口变化事件
 				function listenResize() {
-					endHeight = document.body.clientHeight || document.documentElement.clientHeight;
-					if(startHeight > endHeight && currentInputOffsetTop > endHeight && currentInput != null) {
-						scrollWrapper.scrollTop = currentInputOffsetTop - endHeight + intervalHeight;
+					if(scrollEnd){
+						scrollWrapper.scrollTop = scrollWrapper.scrollHeight;
+					}else{
+						endHeight = document.body.clientHeight || document.documentElement.clientHeight;
+						if(startHeight > endHeight && currentInput != null) {
+	//						currentInputOffsetTop > endHeight &&
+							scrollWrapper.scrollTop = currentInputOffsetTop - endHeight + intervalHeight;
+						}
 					}
 				}
 				
@@ -161,7 +167,10 @@
 				} 
 			}
 			
-			scrollInputTop({"scrollWrapper": "wrapper", "intervalHeight": 50});
+			//scrollWrapper 有滚动的父级box
+			//scrollEnd 是否直接滚动到底部
+			//intervalHeight 往下多滚动的距离
+			scrollInputTop({"scrollWrapper": "wrapper","scrollEnd": true, "intervalHeight": 50});
 		</script>
 	</body>
 </html>
